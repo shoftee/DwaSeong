@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BBF4668D-B032-470B-8CAC-0875736AC5F2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WvsLogin</RootNamespace>
+    <AssemblyName>WvsLogin</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\BinSvr\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{de18fab2-42f3-42f3-896d-0820205f0f51}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MapleLib">
+      <HintPath>..\MapleLib.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.data">
+      <HintPath>..\mysql.data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Center\CenterServer.cs" />
+    <Compile Include="Center\CenterServerConnection.cs" />
+    <Compile Include="Center\CenterServerPacketDefinitions.cs" />
+    <Compile Include="Center\CenterServerPacketHandling.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="GameServer.cs" />
+    <Compile Include="Networking\ClientAcceptor.cs" />
+    <Compile Include="Packets\Handlers\CheckDuplicatedID.cs" />
+    <Compile Include="Packets\Handlers\CheckPassword.cs" />
+    <Compile Include="Packets\Handlers\CheckUserLimit.cs" />
+    <Compile Include="Packets\Handlers\ClientError.cs" />
+    <Compile Include="Packets\Handlers\CreateNewCharacter.cs" />
+    <Compile Include="Packets\Handlers\DeleteCharacter.cs" />
+    <Compile Include="Packets\Handlers\SelectCharacter.cs" />
+    <Compile Include="Packets\Handlers\ValidateVersion.cs" />
+    <Compile Include="Packets\Handlers\ViewAllChar.cs" />
+    <Compile Include="Packets\Handlers\WorldInfo.cs" />
+    <Compile Include="Packets\Handlers\WorldSelect.cs" />
+    <Compile Include="Packets\IPacketHandler.cs" />
+    <Compile Include="Packets\PacketDefinitions.cs" />
+    <Compile Include="Packets\PacketHandler.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="User\AbstractItem.cs" />
+    <Compile Include="User\Character.cs" />
+    <Compile Include="User\Client.cs" />
+    <Compile Include="User\Equip.cs" />
+    <Compile Include="User\ICopyable.cs" />
+    <Compile Include="User\Item.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

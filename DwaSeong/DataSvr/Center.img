@@ -1,0 +1,72 @@
+#Property
+
+port = 8383
+adminPort = 7070
+gameWorldId = 0
+gameWorldName = Tespia
+
+dbCatalogGlobalAccount = GlobalAccount
+dbCatalogGameWorld = GameWorld
+dbCatalogCoupon = Coupon
+dbGameWorldSource = 211.218.234.40,7890
+dbGlobalAccountSource = 211.218.234.40,7891
+dbCouponSource = 211.218.234.40,7891
+
+userLimitITC = 10
+
+login = {
+	Login0 = { 
+		PublicIP = 127.0.0.1 
+		PrivateIP = 127.0.0.1
+		port = 8484
+	}
+}
+
+game = {
+	Game0 = {
+		PublicIP = 127.0.0.1 
+		PrivateIP = 127.0.0.1
+		port = 8585
+	}
+	Game1 = {
+		PublicIP = 127.0.0.1 
+		PrivateIP = 127.0.0.1
+		port = 8586
+	}
+	Game2 = {
+		PublicIP = 127.0.0.1 
+		PrivateIP = 127.0.0.1
+		port = 8587
+	}
+}
+
+shop = {
+	Shop0 = {
+		PublicIP = 127.0.0.1 
+		PrivateIP = 127.0.0.1
+		port = 8787
+	}
+}
+
+mapgen = {
+	MapGen0 = {
+		PublicIP = 127.0.0.1 
+		PrivateIP = 127.0.0.1
+		port = 8989
+	}
+}
+
+claim = {
+	PublicIP = 127.0.0.1 
+	PrivateIP = 127.0.0.1
+	port = 8888
+}
+
+itc = {
+	ITC0 = {
+		PublicIP = 127.0.0.1 
+		PrivateIP = 127.0.0.1
+		port = 8999
+	}
+}
+

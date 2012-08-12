@@ -1,0 +1,5 @@
+c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\WvsCenter\obj\Debug\WvsCenter.csprojResolveAssemblyReference.cache
+c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\BinSvr\WvsCenter.exe
+c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\BinSvr\WvsCenter.pdb
+c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\WvsCenter\obj\Debug\WvsCenter.exe
+c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\WvsCenter\obj\Debug\WvsCenter.pdb

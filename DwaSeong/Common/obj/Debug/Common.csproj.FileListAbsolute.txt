@@ -1,0 +1,4 @@
+c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\BinSvr\Common.dll
+c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\BinSvr\Common.pdb
+c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\Common\obj\Debug\Common.dll
+c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\Common\obj\Debug\Common.pdb

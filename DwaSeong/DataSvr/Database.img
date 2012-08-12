@@ -1,0 +1,4 @@
+dbUsername = root
+dbPassword = root
+dbDatabase = ricems
+dbHost = 127.0.0.1

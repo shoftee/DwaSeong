@@ -1,0 +1,27 @@
+#Property
+
+
+port = 8484
+adminPort = 7071
+dbCatalogGlobalAccount = GlobalAccount
+dbGlobalAccountSource = 211.218.234.40,7891
+
+
+PublicIP = 127.0.0.1
+PrivateIP = 127.0.0.1
+
+logaccount = {
+	0 = 13
+	1 = 33
+}
+
+center = {
+	Orion = {
+		ip = 127.0.0.1
+		port = 8383
+		world = 0
+		channelNo = 3
+	}
+}
+
+
