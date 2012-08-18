@@ -97,6 +97,7 @@ namespace WvsGame.Packets.Handlers
                             c.SendPacket(CField.ChatMessage(0x0C, "@help"));
                             c.SendPacket(CField.ChatMessage(0x0C, "@version"));
                             c.SendPacket(CField.ChatMessage(0x0C, "@chatcolor"));
+                            c.SendPacket(CField.ChatMessage(0x0C, "@accountinfo"));
                             break;
                         case "version":
                             c.SendPacket(CField.ChatMessage(0x07,
@@ -133,6 +134,8 @@ namespace WvsGame.Packets.Handlers
                                     c.SendPacket(CField.ChatMessage(0x0C, "Chose Selection >= 0 While <= 13"));
                                 }
                             }
+                            break;
+                        case "accountinfo":
                             break;
                         default:
                             return 1;

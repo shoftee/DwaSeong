@@ -47,15 +47,14 @@ namespace WvsGame.Field
         public void AddCharacter(Character chr)
         {
             SendPacket(chr.GenerateSpawnPacket().ToArray());
-            //foreach (var c in Program.mServer.Clients.Where(c => c.mCharacter.mField == FieldID && c.mCharacter.mFieldInstance ==  FieldInstance))
-            //    chr.mClient.SendPacket(c.mCharacter.GenerateSpawnPacket().ToArray());
+            foreach (var c in Program.mServer.Clients.Where(c => c.mCharacter.mField == FieldID && c.mCharacter.mFieldInstance == FieldInstance))
+                chr.mClient.SendPacket(c.mCharacter.GenerateSpawnPacket().ToArray());
             foreach (var obj in mObjects.OfType<ISpawnable>())
             {
                 if (obj is Npc)
                     if (((Npc) obj).mID == 9010041 || ((Npc) obj).mID == 9010040)
                     {
-                        Console.WriteLine(
-                            "WALAO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        //Console.WriteLine("WALAO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         continue;
                     }
                 chr.mClient.SendPacket((obj).GenerateSpawnPacket().ToArray());
@@ -71,6 +70,14 @@ namespace WvsGame.Field
                     chr.mClient.SendPacket(c.mCharacter.GenerateDespawnPacket().ToArray());
         }
 
+        public Portal GetPortal(int id)
+        {
+            foreach (Portal p in mObjects.OfType<Portal>())
+                if (p.mPortalID == id)
+                    return p;
+            return null;
+        }
+        
         public Field Copy()
         {
             Field ret = new Field();

@@ -374,6 +374,7 @@ namespace WvsGame
 
             ret.mInventory = GetInventoryItems(ret.mID);
             ret.mSkills = GetSkills(ret.mID);
+            ret.GuildID = GetGuildID(ret.mID);
 
             commandreader.Close();
             return ret;
@@ -756,6 +757,21 @@ namespace WvsGame
         public static void Unban(string acc)
         {
             ExecuteQuery("UPDATE account SET IsBanned = 0 WHERE AccountName = '{0}';", acc);
+        }
+
+        public static int GetGuildID(int cid)
+        {
+            int ret = 0;
+            string query = "SELECT * FROM guild_member WHERE CharacterID";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                ret = Convert.ToInt32(reader["GuildID"]);
+            }
+            reader.Close();
+            return ret;
         }
     }
 }

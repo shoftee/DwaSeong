@@ -48,6 +48,7 @@
     <Compile Include="Database.cs" />
     <Compile Include="GameServer.cs" />
     <Compile Include="GameServerConnection.cs" />
+    <Compile Include="Guild.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

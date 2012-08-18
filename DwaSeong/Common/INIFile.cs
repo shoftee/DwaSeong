@@ -40,8 +40,8 @@ namespace Common
         }
 
         public void IniWriteValue(string Section, string Key, string Value)
-        {
-            WritePrivateProfileString(Section, Key, Value, this.path);
+        { 
+            WritePrivateProfileString(Section, Key, Value, this.path); 
         }
 
         public string IniReadValue(string Section, string Key)
@@ -52,5 +52,6 @@ namespace Common
             return temp.ToString();
 
         }
+
     }
 }

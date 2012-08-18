@@ -305,10 +305,9 @@ namespace WvsGame.Packets
 
         public static void AddRingData(PacketWriter packet, Character chr)
         {
-            packet.WriteShort(0);
-            packet.WriteShort(0);
-            packet.WriteShort(0);
-            packet.WriteShort(0);
+            packet.WriteByte(0); // PartnerRing - long(ringId) long(partnerRingId) int(itemid)
+            packet.WriteByte(0); // PartnerRing - long(ringId) long(partnerRingId) int(itemid)
+            packet.WriteByte(0); // MarrageRing - int(cid) int(parnterCId) int(itemid)
         }
 
         public static void AddRockData(PacketWriter packet, Character chr)
@@ -421,47 +420,64 @@ namespace WvsGame.Packets
             packet.WriteInt(chr.mID);
             packet.WriteByte(chr.mPrimaryStats.Level);
             packet.WriteMapleString(chr.mName);
-            packet.WriteMapleString("");
-            packet.WriteInt(0); // guild
-            packet.WriteInt(0); // guild
+            packet.WriteMapleString(""); // ultimate explourer
+            packet.WriteMapleString("와라오~"); // guild
+            packet.WriteShort(0x3FE); // guild
+            packet.WriteByte(0x10); // guild
+            packet.WriteShort(0xFAC); // guild
+            packet.WriteByte(0x10); // guild
             int[] buffs = new int[8];
-            buffs[0] |= 0x00000000;
-            buffs[1] |= 0x00A00000;
             foreach (Buff buff in chr.mBuffs)
-                buffs[buff.Position] |= buff.BuffID;
-            foreach (int i in buffs)
-                packet.WriteInt(i);
+                buffs[buff.Position] |= buff.BuffID; 
+            //foreach (int i in buffs)
+            //    packet.WriteInt(i); // buffer 32
+            packet.WriteHexString("00 00 00 FE 00 00 A0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ");
             //buff values
-            packet.WriteInt(-1);
 
+            packet.WriteInt(-1); // end buff values reading ?
+
+            //packet.WriteByte(0);
+            //packet.WriteByte(0);
+            //packet.WriteByte(0);
+            //packet.WriteByte(0); 
+
+            //packet.WriteBytes(new byte[4]); 
+            //packet.WriteBytes(new byte[4]);
+            //packet.WriteByte(1);
+
+            packet.WriteHexString("00 00 00 00 00 00 00 00 00 00 00 00 01");
+
+            packet.WriteInt(Environment.TickCount);
+            packet.WriteShort(0); 
+            packet.WriteBytes(new byte[4]);
+            packet.WriteBytes(new byte[4]);
+            packet.WriteByte(1);
+            packet.WriteInt(Environment.TickCount);
+            packet.WriteShort(0); 
+            packet.WriteBytes(new byte[4]);
+            packet.WriteBytes(new byte[4]);
+            packet.WriteByte(1);
+            packet.WriteInt(Environment.TickCount);
+            packet.WriteShort(0); 
+            packet.WriteBytes(new byte[4]); 
+            packet.WriteBytes(new byte[4]);
+            packet.WriteByte(1);
+            packet.WriteInt(Environment.TickCount);
+            packet.WriteBytes(new byte[4]);
+            packet.WriteBytes(new byte[4]);
+            packet.WriteByte(1);
+            packet.WriteInt(Environment.TickCount);
+            packet.WriteByte(1);
+            packet.WriteInt(0);
             packet.WriteShort(0);
-            packet.WriteShort(0); // begin energy charge
-            packet.WriteLong(0);
+            packet.WriteBytes(new byte[4]);
+            packet.WriteBytes(new byte[4]);
             packet.WriteByte(1);
             packet.WriteInt(Environment.TickCount);
-            packet.WriteShort(0); // begin dash speed
-            packet.WriteLong(0);
-            packet.WriteByte(1);
-            packet.WriteInt(Environment.TickCount);
-            packet.WriteShort(0); // begin dash jump
-            packet.WriteLong(0);
-            packet.WriteByte(1);
-            packet.WriteInt(Environment.TickCount);
-            packet.WriteShort(0);
-            packet.WriteLong(0); // monster rider
-            packet.WriteByte(1);
-            packet.WriteInt(Environment.TickCount);
-            packet.WriteLong(0); // speed infusion
-            packet.WriteByte(1);
-            packet.WriteInt(Environment.TickCount);
-            packet.WriteInt(1);
-            packet.WriteLong(0); // homing beacon
-            packet.WriteByte(0);
-            packet.WriteShort(0);
-            packet.WriteByte(1);
-            packet.WriteInt(Environment.TickCount);
-            packet.WriteLong(0);
-            packet.WriteLong(0);
+            packet.WriteInt(0);
+            packet.WriteInt(0);
+            packet.WriteBytes(new byte[4]);
+            packet.WriteBytes(new byte[4]);
             packet.WriteByte(1);
             packet.WriteInt(Environment.TickCount);
             packet.WriteShort(0);
@@ -470,29 +486,29 @@ namespace WvsGame.Packets
             packet.WriteShort(0);
             Global.AddAvatarData(packet, chr);
             packet.WriteInt(0);
-            packet.WriteInt(0);
-            packet.WriteInt(0); // count of 5110000 in cash inventory
-            packet.WriteInt(0);
+            packet.WriteBytes(new byte[12]);
             packet.WriteInt(0);
             packet.WriteInt(0);
             packet.WriteInt(0);
             packet.WriteInt(0);
-
-            packet.WriteInt(0); // quest
             packet.WriteInt(0);
-            packet.WriteInt(0); // item effect
-            packet.WriteInt(0); // chair
+            packet.WriteInt(0);
+            packet.WriteInt(0);
+            packet.WriteInt(0);
             packet.WriteInt(0);
 
             packet.WriteShort(chr.mPosition.X);
             packet.WriteShort(chr.mPosition.Y);
-            packet.WriteByte(chr.mStance);
+            packet.WriteByte(0); // chr.mStance
             packet.WriteShort(chr.mFoothold);
 
             packet.WriteByte(0);
             packet.WriteByte(0);
 
-            packet.WriteInt(0); // mount level
+            packet.WriteByte(1);
+            packet.WriteByte(0);
+
+            packet.WriteInt(1); // mount level
             packet.WriteInt(0); // mount exp
             packet.WriteInt(0); // mount fatigue
 
@@ -507,10 +523,7 @@ namespace WvsGame.Packets
             packet.WriteByte(0); // berserk
             packet.WriteInt(0);
             packet.WriteByte(0); // new year cards
-
             packet.WriteInt(0);
-            packet.WriteByte(0); // pvp
-            packet.WriteByte(0); // monster carnival team
             return packet.ToArray();
         }
 
@@ -566,7 +579,6 @@ namespace WvsGame.Packets
         {
             PacketWriter packet = new PacketWriter();
             packet.WriteOpcode(SendOps.SetField);
-            //packet.WriteHexString("02 00 01 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 01 00 00 63 A6 18 BD 3C 0A 57 D5 61 41 BB EB");
             packet.WriteShort(2);
             packet.WriteInt(1);
             packet.WriteInt(0);
@@ -616,7 +628,11 @@ namespace WvsGame.Packets
             //packet.WriteHexString("01 07 00 0C 00 00 00 00 00 00 00 00 80 05 BB 46 E6 17 02 49 00 00 00 00 00 00 00 00 80 05 BB 46 E6 17 02 10 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 0F 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 0E 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 12 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 11 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 00 00 01 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B 00 00 00 00 00 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 70 53 A7 D3 06 6E CD 01 64 00 00 00 00 01");
 
             Global.AddQuestData(packet, c.mCharacter);
-            Global.AddRingData(packet, c.mCharacter);//01 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 
+            //Global.AddRingData(packet, c.mCharacter);//01 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 
+            packet.WriteShort(0); // rings...something like that ?
+            packet.WriteShort(0); // rings...something like that ?
+            packet.WriteShort(0); // rings...something like that ?
+            packet.WriteShort(0); // rings...something like that ?
             //FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B 
             Global.AddRockData(packet, c.mCharacter);
             //00 00 00 00 00 00 00 FF FF FF FF 

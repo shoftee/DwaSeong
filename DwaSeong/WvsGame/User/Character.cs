@@ -62,6 +62,8 @@ namespace WvsGame.User
         public int mStance { get; set; }
         public int mFoothold { get; set; }
 
+        public int GuildID { get; set; }
+
         public Character()
         {
             

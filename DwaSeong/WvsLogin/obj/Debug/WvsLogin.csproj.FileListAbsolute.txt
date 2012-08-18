@@ -3,3 +3,8 @@ c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\BinSvr\WvsLogin.exe
 c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\BinSvr\WvsLogin.pdb
 c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\WvsLogin\obj\Debug\WvsLogin.exe
 c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\WvsLogin\obj\Debug\WvsLogin.pdb
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsLogin.exe
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsLogin.pdb
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsLogin\obj\Debug\WvsLogin.csprojResolveAssemblyReference.cache
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsLogin\obj\Debug\WvsLogin.exe
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsLogin\obj\Debug\WvsLogin.pdb

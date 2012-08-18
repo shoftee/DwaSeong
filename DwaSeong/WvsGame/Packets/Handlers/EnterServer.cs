@@ -52,6 +52,7 @@ namespace WvsGame.Packets.Handlers
                 return; // TODO: Autoban
             }
             c.mCharacter = Database.GetCharacter(cid);
+            c.mCharacter.mPosition = Program.mServer.Fields[c.mCharacter.mField][c.mCharacter.mFieldInstance].GetPortal(c.mCharacter.mFieldPosition).mPosition;
             c.mCharacter.mClient = c;
             Console.WriteLine("Character: {0}:{1}", c.mCharacter.mID, c.mCharacter.mName);
             c.SendPacket(CStage.SetField(c, true));
