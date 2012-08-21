@@ -97,46 +97,13 @@ namespace WvsCenter
             else
                 con.mSession.SendPacket(CenterServerPacketDefinitions.Migrate(accountid, cid, System.Net.IPAddress.Parse(serv.PublicIP).GetAddressBytes(), serv.port));
         }
-    }
 
-    static class CenterServerPacketDefinitions
-    {
-        public static byte[] IdentifySuccess(int id)
+        public static void GuildOperation(GameServerConnection con, PacketReader packet)
         {
-            PacketWriter packet = new PacketWriter();
-            packet.WriteCenterServerOpcode(CenterSendOps.IdentifySuccess);
-            packet.WriteInt(id);
-            return packet.ToArray();
-        }
-
-        public static byte[] ChannelLoad()
-        {
-            PacketWriter packet = new PacketWriter();
-            packet.WriteCenterServerOpcode(CenterSendOps.ChannelLoad);
-            List<GameServer> chans = new List<GameServer>();
-            foreach (GameServer serv in Program.mServer.gameServers.Values)
-            {
-                if (serv.ServerType == GameServerType.Game)
-                    chans.Add(serv);
-            }
-            packet.WriteByte(chans.Count);
-            foreach (GameServer serv in chans)
-            {
-                packet.WriteByte(serv.ID);
-                packet.WriteInt(serv.ClientCount);
-            }
-            return packet.ToArray();
-        }
-
-        public static byte[] Migrate(int accid, int cid, byte[] ip, ushort port)
-        {
-            PacketWriter packet = new PacketWriter();
-            packet.WriteCenterServerOpcode(CenterSendOps.Migrate);
-            packet.WriteInt(accid);
-            packet.WriteInt(cid);
-            packet.WriteBytes(ip);
-            packet.WriteShort(port);
-            return packet.ToArray();
+            int cid = packet.ReadInt();
+            int gid = packet.ReadInt();
+            var guild = Database.GetGuild(gid);
+            con.mSession.SendPacket(CenterServerPacketDefinitions.GuildOperation(cid, guild));
         }
     }
 }

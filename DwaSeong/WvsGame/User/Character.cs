@@ -25,6 +25,7 @@ using System.Drawing;
 using MapleLib.PacketLib;
 using WvsGame.Field.Entity;
 using WvsGame.WZ;
+using Common;
 
 namespace WvsGame.User
 {
@@ -62,7 +63,7 @@ namespace WvsGame.User
         public int mStance { get; set; }
         public int mFoothold { get; set; }
 
-        public int GuildID { get; set; }
+        public Guild mGuild { get; set; }
 
         public Character()
         {

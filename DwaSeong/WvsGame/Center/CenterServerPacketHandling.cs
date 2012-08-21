@@ -22,6 +22,7 @@ using System.Linq;
 using System.Text;
 using WvsGame.Networking;
 using MapleLib.PacketLib;
+using Common;
 
 namespace WvsGame.Center
 {
@@ -34,6 +35,43 @@ namespace WvsGame.Center
             Program.mServer.Acceptor = new ClientAcceptor();
             Program.mServer.Acceptor.mGameServer = Program.mServer;
             Program.mServer.Acceptor.Listen();
+        }
+
+        public static void HandleGuildOperation(PacketReader packet)
+        {
+            int cid = packet.ReadInt();
+            int gid = packet.ReadInt();
+            string name = packet.ReadMapleString();
+            int point = packet.ReadInt();
+            int membercap = packet.ReadShort();
+            int emblemBG = packet.ReadShort();
+            int emblemBGC = packet.ReadShort();
+            int emblem = packet.ReadShort();
+            int emblemC = packet.ReadShort();
+            int membercount = packet.ReadInt();
+            List<GuildMember> mems = new List<GuildMember>();
+            for (int i = 0; i < membercount; ++i)
+            {
+                var member = new GuildMember();
+                member.CharacterID = packet.ReadInt();
+                member.Grade = packet.ReadInt();
+                member.GuildID = gid;
+                mems.Add(member);
+            }
+
+            if (membercap == 0)
+                ++membercap;
+            var guild = new Guild();
+            guild.Name = name;
+            guild.GuildID = gid;
+            guild.Point = point;
+            guild.MemberCap = membercap;
+            guild.EmblemBG = emblemBG;
+            guild.EmblemBGColour = emblemBGC;
+            guild.Emblem = emblem;
+            guild.EmblemColour = emblemC;
+            guild.Members = mems.ToArray();
+            Program.mServer.GetClient(cid).mCharacter.mGuild = guild;
         }
     }
 }

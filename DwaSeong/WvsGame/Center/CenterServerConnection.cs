@@ -88,6 +88,7 @@ namespace WvsGame.Center
             switch ((CenterSendOps)opcode)
             {
                 case CenterSendOps.IdentifySuccess: CenterServerPacketHandling.HandleIdentify(packet); break;
+                case CenterSendOps.GuildOperation: CenterServerPacketHandling.HandleGuildOperation(packet); break;
             }
         }
     }

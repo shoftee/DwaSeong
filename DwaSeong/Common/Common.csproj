@@ -42,11 +42,14 @@
     <Compile Include="Constants\Job.cs" />
     <Compile Include="Constants\Stat.cs" />
     <Compile Include="GameServerOpcodes.cs" />
+    <Compile Include="Guild.cs" />
     <Compile Include="ICopyable.cs" />
     <Compile Include="INIFile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

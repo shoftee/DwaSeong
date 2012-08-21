@@ -73,6 +73,7 @@
     <Compile Include="Packets\PacketDefinitions.cs" />
     <Compile Include="Packets\PacketHandler.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\AbstractItem.cs" />
     <Compile Include="User\Character.cs" />
     <Compile Include="User\Client.cs" />

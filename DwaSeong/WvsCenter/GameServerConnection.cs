@@ -49,6 +49,7 @@ namespace WvsCenter
                 case CenterRecvOps.ClientCount: CenterServerPacketHandling.ClientCount(this, packet); break;
                 case CenterRecvOps.PollChannelLoad: CenterServerPacketHandling.ChannelLoad(this, packet); break;
                 case CenterRecvOps.Migrate: CenterServerPacketHandling.Migrate(this, packet); break;
+                case CenterRecvOps.GuildOperation: CenterServerPacketHandling.GuildOperation(this, packet); break;
             }
         }
 

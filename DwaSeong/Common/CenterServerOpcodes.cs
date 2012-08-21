@@ -28,6 +28,7 @@ namespace Common
         IdentifySuccess,
         ChannelLoad,
         Migrate,
+        GuildOperation,
     }
 
     public enum CenterRecvOps : short
@@ -36,5 +37,6 @@ namespace Common
         ClientCount,
         PollChannelLoad,
         Migrate,
+        GuildOperation,
     }
 }

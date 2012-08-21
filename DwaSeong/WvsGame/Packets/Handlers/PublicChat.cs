@@ -136,6 +136,17 @@ namespace WvsGame.Packets.Handlers
                             }
                             break;
                         case "accountinfo":
+                            var sb = new StringBuilder();
+                            sb.Append(c.mAccount.AccountId);
+                            sb.Append(",");
+                            sb.Append(c.mAccount.Admin);
+                            sb.Append(",");
+                            sb.Append(c.mCharacter.mID);
+                            sb.Append(",");
+                            sb.Append(c.mCharacter.mGuild.Name);
+                            sb.Append(",");
+                            sb.Append(c.validated);
+                            c.SendPacket(CField.ChatMessage(0x0C, sb.ToString()));
                             break;
                         default:
                             return 1;

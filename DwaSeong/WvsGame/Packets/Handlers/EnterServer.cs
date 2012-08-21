@@ -51,7 +51,10 @@ namespace WvsGame.Packets.Handlers
                 Logger.Write(Logger.LogTypes.경고, "UNEQUAL CONAUTH !");
                 return; // TODO: Autoban
             }
+            c.validated = true;
             c.mCharacter = Database.GetCharacter(cid);
+            Program.mServer.center.mCenterConnection.mSession.SendPacket(CenterServerPacketDefinitions.GuildInfo(c.mCharacter.mID, c.mCharacter.mGuild.GuildID));
+            while (c.mCharacter.mGuild.MemberCap == 0) ;
             c.mCharacter.mPosition = Program.mServer.Fields[c.mCharacter.mField][c.mCharacter.mFieldInstance].GetPortal(c.mCharacter.mFieldPosition).mPosition;
             c.mCharacter.mClient = c;
             Console.WriteLine("Character: {0}:{1}", c.mCharacter.mID, c.mCharacter.mName);

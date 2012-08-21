@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
+using Common;
 
 namespace WvsCenter
 {
@@ -48,6 +49,46 @@ namespace WvsCenter
             query = string.Format(query, objects);
             MySqlCommand command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
+        }
+
+        public static MySqlDataReader ExecuteDataQuery(string query, params object[] objects)
+        {
+            query = string.Format(query, objects);
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            return command.ExecuteReader();
+        }
+
+        public static Guild GetGuild(int GuildID)
+        {
+            var ret = new Guild();
+            MySqlDataReader reader = ExecuteDataQuery("SELECT * FROM guild_info WHERE id = {0};", GuildID);
+            ret.GuildID = GuildID;
+            while (reader.Read())
+            {
+                ret.Name = Convert.ToString(reader["Name"]);
+                ret.Point = Convert.ToInt32(reader["Point"]);
+                ret.MemberCap = Convert.ToInt32(reader["MemberCap"]);
+                ret.EmblemBG = Convert.ToInt32(reader["EmblemBG"]);
+                ret.EmblemBGColour = Convert.ToInt32(reader["EmblemBGColour"]);
+                ret.Emblem = Convert.ToInt32(reader["Emblem"]);
+                ret.EmblemColour = Convert.ToInt32(reader["EmblemColour"]);
+                ret.Created = Convert.ToInt64(reader["Created"]);
+            }
+            reader.Close();
+            reader = ExecuteDataQuery("SELECT * FROM guild_member WHERE GuildID = {0};", GuildID);
+            List<GuildMember> members = new List<GuildMember>();
+            while (reader.Read())
+            {
+                var member = new GuildMember();
+                member.GuildID = GuildID;
+                member.CharacterID = Convert.ToInt32(reader["CharacterID"]);
+                member.Grade = Convert.ToInt32(reader["Grade"]);
+                members.Add(member);
+            }
+            reader.Close();
+            ret.Members = members.ToArray();
+            return ret;
         }
     }
 }

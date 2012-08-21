@@ -421,11 +421,11 @@ namespace WvsGame.Packets
             packet.WriteByte(chr.mPrimaryStats.Level);
             packet.WriteMapleString(chr.mName);
             packet.WriteMapleString(""); // ultimate explourer
-            packet.WriteMapleString("와라오~"); // guild
-            packet.WriteShort(0x3FE); // guild
-            packet.WriteByte(0x10); // guild
-            packet.WriteShort(0xFAC); // guild
-            packet.WriteByte(0x10); // guild
+            packet.WriteMapleString(chr.mGuild.Name); 
+            packet.WriteShort(chr.mGuild.EmblemBG      ); //  0x3FE
+            packet.WriteByte( chr.mGuild.EmblemBGColour);  // 0x10 
+            packet.WriteShort(chr.mGuild.Emblem         ); // 0xFAC
+            packet.WriteByte( chr.mGuild.EmblemColour  );  // 0x10 
             int[] buffs = new int[8];
             foreach (Buff buff in chr.mBuffs)
                 buffs[buff.Position] |= buff.BuffID; 
@@ -676,7 +676,7 @@ namespace WvsGame.Packets
             packet.WriteShort(npc.mFh);
             packet.WriteShort(npc.mRx0);
             packet.WriteShort(npc.mRx1);
-            packet.WriteBool(true); // visible
+            packet.WriteBool(false); // visible
             return packet.ToArray();
         }
 

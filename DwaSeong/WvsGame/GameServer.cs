@@ -143,6 +143,14 @@ namespace WvsGame
             }
         }
 
+        public Client GetClient(int cid)
+        {
+            foreach (var client in Clients)
+                if (client.mCharacter != null && client.mCharacter.mID == cid)
+                    return client;
+            return null;
+        }
+
         public bool CacheWZCharacterData()
         {
             try

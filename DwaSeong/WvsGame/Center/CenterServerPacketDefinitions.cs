@@ -51,5 +51,14 @@ namespace WvsGame.Center
             packet.WriteCenterServerOpcode(CenterRecvOps.PollChannelLoad);
             return packet.ToArray();
         }
+
+        public static byte[] GuildInfo(int cid, int gid)
+        {
+            var packet = new PacketWriter();
+            packet.WriteCenterServerOpcode(CenterRecvOps.GuildOperation);
+            packet.WriteInt(cid);
+            packet.WriteInt(gid);
+            return packet.ToArray();
+        }
     }
 }

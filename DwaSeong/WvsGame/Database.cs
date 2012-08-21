@@ -25,6 +25,7 @@ using System.Reflection;
 using WvsGame.User;
 using WvsGame.WZ;
 using MapleLib.PacketLib;
+using Common;
 
 namespace WvsGame
 {
@@ -52,6 +53,14 @@ namespace WvsGame
             query = string.Format(query, objects);
             MySqlCommand command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
+        }
+
+        public static MySqlDataReader ExecuteDataQuery(string query, params object[] objects)
+        {
+            query = string.Format(query, objects);
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            return command.ExecuteReader();
         }
 
         /// <summary>
@@ -374,7 +383,7 @@ namespace WvsGame
 
             ret.mInventory = GetInventoryItems(ret.mID);
             ret.mSkills = GetSkills(ret.mID);
-            ret.GuildID = GetGuildID(ret.mID);
+            ret.mGuild = new Guild { GuildID = GetGuildID(ret.mID) };
 
             commandreader.Close();
             return ret;
@@ -762,10 +771,7 @@ namespace WvsGame
         public static int GetGuildID(int cid)
         {
             int ret = 0;
-            string query = "SELECT * FROM guild_member WHERE CharacterID";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader reader = command.ExecuteReader();
+            var reader = ExecuteDataQuery("SELECT * FROM guild_member WHERE CharacterID = {0};", cid);
             while (reader.Read())
             {
                 ret = Convert.ToInt32(reader["GuildID"]);
