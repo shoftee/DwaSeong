@@ -71,9 +71,9 @@ namespace WvsLogin.Packets
             packet.WriteByte(1);
             packet.WriteLong(0); // Creation date. That's not important!
             packet.WriteInt(0x0C); // Tooltip bubble at World/Channel select
-            packet.WriteByte(1); // Use ConAuth?
+            packet.WriteByte(1); // Use SessionID
             packet.WriteByte(1);
-            packet.WriteLong(c.conauth);
+            packet.WriteLong(c.SessionID);
             return packet.ToArray();
         }
 

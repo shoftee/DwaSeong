@@ -35,6 +35,15 @@ namespace WvsGame.Field
                 c.SendPacket(packet);
         }
 
+        public void SendPacket(Client ignore, byte[] packet)
+        {
+            foreach (
+                Client c in
+                    Program.mServer.Clients.Where(
+                        c => c.mCharacter.mField == FieldID && c.mCharacter.mFieldInstance == FieldInstance && c != ignore))
+                c.SendPacket(packet);
+        }
+
 
         public void AddFieldObject(FieldObject obj)
         {
@@ -53,12 +62,9 @@ namespace WvsGame.Field
             {
                 if (obj is Npc)
                     if (((Npc) obj).mID == 9010041 || ((Npc) obj).mID == 9010040)
-                    {
-                        //Console.WriteLine("WALAO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         continue;
-                    }
                 chr.mClient.SendPacket((obj).GenerateSpawnPacket().ToArray());
-                Console.WriteLine(obj.ToString());
+                //Console.WriteLine(obj.ToString());
             }
         }
 

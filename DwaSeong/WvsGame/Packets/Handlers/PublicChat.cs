@@ -49,9 +49,9 @@ namespace WvsGame.Packets.Handlers
             {
                 string[] splitted = message.Replace("!", "").Split(' ');
                 int status = CommandProcessing.HandleMasterCommand(c, splitted);
-                if (status == 0)
+                /*if (status == 0)
                     c.SendPacket(CField.ChatMessage(0x0C, "Success! Execute Master Command " + message));
-                else if (status == 1)
+                else */if (status == 1)
                     c.SendPacket(CField.ChatMessage(0x0C, "Fail! NOT EXIST Execute Master Command " + message));
                 else if (status == 2)
                     c.SendPacket(CField.ChatMessage(0x0C, "Fail! EXCEPTION Execute Master Command " + message));
@@ -60,9 +60,9 @@ namespace WvsGame.Packets.Handlers
             {
                 string[] splitted = message.Replace("/", "").Split(' ');
                 int status = CommandProcessing.HandleAdminCommand(c, splitted);
-                if (status == 0)
+                /*if (status == 0)
                     c.SendPacket(CField.ChatMessage(0x0C, "Success! Execute Admin Command " + message));
-                else if (status == 1)
+                else */if (status == 1)
                     c.SendPacket(CField.ChatMessage(0x0C, "Fail! NOT EXIST Execute Admin Ccommand " + message));
                 else if (status == 2)
                     c.SendPacket(CField.ChatMessage(0x0C, "Fail! EXCEPTION Execute Admin Command " + message));
@@ -168,6 +168,7 @@ namespace WvsGame.Packets.Handlers
                         case "help":
                         case "commands":
                             c.SendPacket(CField.ChatMessage(0x09, "!help"));
+                            c.SendPacket(CField.ChatMessage(0x09, "!pos"));
                             c.SendPacket(CField.ChatMessage(0x09, "!say [message]"));
                             c.SendPacket(CField.ChatMessage(0x09, "!notice [message]"));
                             c.SendPacket(CField.ChatMessage(0x09, "!clients"));
@@ -177,6 +178,9 @@ namespace WvsGame.Packets.Handlers
                             c.SendPacket(CField.ChatMessage(0x09, "!ban"));
                             c.SendPacket(CField.ChatMessage(0x09, "!waveban"));
                             c.SendPacket(CField.ChatMessage(0x09, "!unban [name]"));
+                            break;
+                        case "pos":
+                            c.SendPacket(CField.ChatMessage(0x09, c.mCharacter.mPosition.ToString()));
                             break;
                         case "notice":
                             foreach (var cl in Program.mServer.Clients)

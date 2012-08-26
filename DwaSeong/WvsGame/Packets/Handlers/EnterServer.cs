@@ -35,29 +35,29 @@ namespace WvsGame.Packets.Handlers
             byte[] mac = packet.ReadBytes(6);
             byte[] hwid = packet.ReadBytes(4);
             packet.Skip(8);
-            long conauth = packet.ReadLong();
+            long sessionID = packet.ReadLong();
             c.mAccount = new Account();
             c.mAccount.Load(cid);
             Logger.Write(Logger.LogTypes.정보,
-                         "CONAUTH;\r\n\t CID={0},\r\n\t CMAC={1},\r\n\t CHWID={2},\r\n\t CCONAUTH={3},\r\n\t SMAC={4},\r\n\t SHWID={5},\r\n\t SCONAUTH={6}",
+                         "SESSIONID;\r\n\t CID={0},\r\n\t CMAC={1},\r\n\t CHWID={2},\r\n\t CSESSIONID={3},\r\n\t SMAC={4},\r\n\t SHWID={5},\r\n\t SSESSIONID={6}",
                          cid, mac.ToString2s(), 
                          hwid.ToString2s(), 
-                         conauth, 
+                         sessionID, 
                          c.mAccount.MacAddress.ToString2s(),
                          c.mAccount.HDDSerial.ToString2s(), 
-                         c.mAccount.conauth);
-            if (c.mAccount.conauth != conauth)
+                         c.mAccount.SessionID);
+            if (c.mAccount.SessionID != sessionID)
             {
-                Logger.Write(Logger.LogTypes.경고, "UNEQUAL CONAUTH !");
+                Logger.Write(Logger.LogTypes.경고, "UNEQUAL SESSIONID !");
                 return; // TODO: Autoban
             }
             c.validated = true;
             c.mCharacter = Database.GetCharacter(cid);
             Program.mServer.center.mCenterConnection.mSession.SendPacket(CenterServerPacketDefinitions.GuildInfo(c.mCharacter.mID, c.mCharacter.mGuild.GuildID));
-            while (c.mCharacter.mGuild.MemberCap == 0) ;
+            System.Threading.Thread.Sleep(500); // should be enough
             c.mCharacter.mPosition = Program.mServer.Fields[c.mCharacter.mField][c.mCharacter.mFieldInstance].GetPortal(c.mCharacter.mFieldPosition).mPosition;
             c.mCharacter.mClient = c;
-            Console.WriteLine("Character: {0}:{1}", c.mCharacter.mID, c.mCharacter.mName);
+            Console.WriteLine("Character: {0}:{1}", c.mCharacter.mID, c.mCharacter.mGuild.Name);
             c.SendPacket(CStage.SetField(c, true));
             Program.mServer.Fields[c.mCharacter.mField][c.mCharacter.mFieldInstance].AddCharacter(c.mCharacter);
         }

@@ -60,6 +60,9 @@ namespace WvsLogin
         {
             Clients = new List<Client>();
             DateTime time = DateTime.Now;
+            Console.WriteLine();
+            Console.WriteLine("\tDwaSeong(돠성) Maple Gulobal Emulator Verson " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+            Console.WriteLine();
             Logger.LogInit("Loading config from Login IMG", new _Delegate(LoadGameIMGConfig));
             Logger.LogInit("Loading config from Database IMG", new _Delegate(LoadDBIMGConfig));
             Logger.LogInit("Establishing database connection", new _Delegate(SetDBCon));

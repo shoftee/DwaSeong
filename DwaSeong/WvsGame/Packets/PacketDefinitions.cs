@@ -23,6 +23,7 @@ using System.Text;
 using MapleLib.PacketLib;
 using WvsGame.Field.Entity;
 using WvsGame.WZ;
+using WvsGame.Movement;
 using WvsGame.User;
 using System.Drawing;
 using Common;
@@ -340,7 +341,7 @@ namespace WvsGame.Packets
     {
         public static byte[] GMBoard(string url)
         {
-            PacketWriter packet = new PacketWriter();
+            var packet = new PacketWriter();
             packet.WriteOpcode(SendOps.GMBoard);
             packet.WriteInt(Environment.TickCount); // actually object id of some sort
             packet.WriteMapleString(url);
@@ -415,17 +416,17 @@ namespace WvsGame.Packets
     {
         public static byte[] UserEnterField(Character chr)
         {
-            PacketWriter packet = new PacketWriter();
+            var packet = new PacketWriter();
             packet.WriteOpcode(SendOps.UserEnterField);
             packet.WriteInt(chr.mID);
             packet.WriteByte(chr.mPrimaryStats.Level);
             packet.WriteMapleString(chr.mName);
             packet.WriteMapleString(""); // ultimate explourer
-            packet.WriteMapleString(chr.mGuild.Name); 
-            packet.WriteShort(chr.mGuild.EmblemBG      ); //  0x3FE
-            packet.WriteByte( chr.mGuild.EmblemBGColour);  // 0x10 
-            packet.WriteShort(chr.mGuild.Emblem         ); // 0xFAC
-            packet.WriteByte( chr.mGuild.EmblemColour  );  // 0x10 
+            packet.WriteMapleString(chr.mGuild.Name);
+            packet.WriteShort(chr.mGuild.EmblemBG);
+            packet.WriteByte(chr.mGuild.EmblemBGColour);
+            packet.WriteShort(chr.mGuild.Emblem);
+            packet.WriteByte(chr.mGuild.EmblemColour);
             int[] buffs = new int[8];
             foreach (Buff buff in chr.mBuffs)
                 buffs[buff.Position] |= buff.BuffID; 
@@ -529,7 +530,7 @@ namespace WvsGame.Packets
 
         public static byte[] PlayerLeaveField(int cid)
         {
-            PacketWriter packet = new PacketWriter();
+            var packet = new PacketWriter();
             packet.WriteOpcode(SendOps.PlayerLeaveField);
             packet.WriteInt(cid);
             return packet.ToArray();
@@ -565,10 +566,34 @@ namespace WvsGame.Packets
         // D = ligt blue background
         public static byte[] ChatMessage(short type, string message)
         {
-            PacketWriter packet = new PacketWriter();
-            packet.WriteOpcode(SendOps.ChatMessage);
+            var packet = new PacketWriter();
+            packet.WriteOpcode(SendOps.ChatMsg);
             packet.WriteShort(type);
             packet.WriteMapleString(message);
+            return packet.ToArray();
+        }
+
+        public static byte[] UserMove(int cid, Point start, List<IMovePath> movement)
+        {
+            var packet = new PacketWriter();
+            packet.WriteOpcode(SendOps.UserMove);
+            packet.WriteInt(cid);
+            packet.WritePos(start);
+            packet.WriteBytes(new byte[4]);
+            packet.WriteByte(movement.Count);
+            foreach (IMovePath move in movement)
+                move.Encode(packet);
+            return packet.ToArray();
+        }
+
+        public static byte[] UserMove(int cid, Point start, byte[] movement)
+        {
+            var packet = new PacketWriter();
+            packet.WriteOpcode(SendOps.UserMove);
+            packet.WriteInt(cid);
+            packet.WritePos(start);
+            packet.WriteBytes(new byte[4]);
+            packet.WriteBytes(movement);
             return packet.ToArray();
         }
     }
@@ -577,7 +602,7 @@ namespace WvsGame.Packets
     {
         public static byte[] SetField(Client c, bool connecting = false)
         {
-            PacketWriter packet = new PacketWriter();
+            var packet = new PacketWriter();
             packet.WriteOpcode(SendOps.SetField);
             packet.WriteShort(2);
             packet.WriteInt(1);
@@ -596,7 +621,7 @@ namespace WvsGame.Packets
                 packet.WriteByte(c.mCharacter.mFieldPosition);
                 packet.WriteInt(c.mCharacter.mPrimaryStats.HP);
                 packet.WriteByte(0);
-                packet.WriteLong(c.mAccount.conauth);
+                packet.WriteLong(c.mAccount.SessionID);
                 packet.WriteInt(100);
                 packet.WriteByte(0);
                 packet.WriteByte(0);
@@ -625,7 +650,7 @@ namespace WvsGame.Packets
             packet.WriteByte(0); // ultimate explorer
             Global.AddInventoryData(packet, c.mCharacter);
             Global.AddSkillData(packet, c.mCharacter);
-            //packet.WriteHexString("01 07 00 0C 00 00 00 00 00 00 00 00 80 05 BB 46 E6 17 02 49 00 00 00 00 00 00 00 00 80 05 BB 46 E6 17 02 10 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 0F 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 0E 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 12 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 11 2D 31 01 FF FF FF FF 00 80 05 BB 46 E6 17 02 00 00 01 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B FF C9 9A 3B 00 00 00 00 00 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 70 53 A7 D3 06 6E CD 01 64 00 00 00 00 01");
+            
 
             Global.AddQuestData(packet, c.mCharacter);
             //Global.AddRingData(packet, c.mCharacter);//01 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 
@@ -664,19 +689,19 @@ namespace WvsGame.Packets
 
     public static class CNpcPool
     {
-        public static byte[] NpcEnterField(Npc npc)
+        public static byte[] NpcEnterField(Npc npc, bool show = true)
         {
-            PacketWriter packet = new PacketWriter();
+            var packet = new PacketWriter();
             packet.WriteOpcode(SendOps.NpcEnterField);
             packet.WriteInt(npc.mObjectID);
             packet.WriteInt(npc.mID);
             packet.WriteShort(npc.mX);
             packet.WriteShort(npc.mCy);
-            packet.WriteByte(npc.mF);
+            packet.WriteByte(Math.Abs(npc.mF - 1));
             packet.WriteShort(npc.mFh);
             packet.WriteShort(npc.mRx0);
             packet.WriteShort(npc.mRx1);
-            packet.WriteBool(false); // visible
+            packet.WriteBool(show); // visible
             return packet.ToArray();
         }
 

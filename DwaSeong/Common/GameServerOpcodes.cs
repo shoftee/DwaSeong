@@ -87,7 +87,22 @@ namespace Common
         //CUserPool::OnUserCommonPacket              // 0x00B71210
         PublicChatMsg = 0xE8,                        // 0x00AE8720
 
-        ChatMessage = 0x160, // ㅇㅇ 와라오
+        //CUserRemote::OnPacket
+        UserMove = 0x11C,
+        SetActivePOrtableCHair = 0x12D,
+        AvatarModified = 0x12E,
+        SetTemporaryStat = 0x130,
+        ResetTemporaryStat = 0x131,
+        RecieveHP = 0x132,
+        GuildNameChanged = 0x133,
+        GuildMarkChanged = 0x134,
+        MapleTeamChanged = 0x135,
+        PvpHPChanged = 0x137,
+
+        //CUserLocal::OnPacket
+        OpenUI = 0x150,
+        NoticeMsg = 0x15F,
+        ChatMsg = 0x160, // ㅇㅇ 와라오
     }
 
     public enum RecvOps : short
@@ -107,6 +122,7 @@ namespace Common
         ClientError = 0x2F,
         SelectCharacter = 0x33,
 
+        UserMove = 0x49,
         PublicChat = 0x54,
     }
 }

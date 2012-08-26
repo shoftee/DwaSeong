@@ -35,7 +35,7 @@ namespace WvsLogin.User
         public int AccountId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public long conauth = -1;
+        public long SessionID = -1;
         public int RecentWorld { get; set; }
         public int RecentChannel { get; set; }
         public byte[] MacAddress { get; set; }
@@ -100,8 +100,8 @@ namespace WvsLogin.User
 
         public void SaveAccountToDatabase()
         {
-            Database.ExecuteQuery("UPDATE Account SET `Conauth` = {0}, `RecentWorld` = {1}, `MacAddress` = '{2}', `HWID` = '{3}', `Pin` = '{4}', `Pic` = '{5}' WHERE AccountName = '{6}'",
-                conauth,
+            Database.ExecuteQuery("UPDATE Account SET `SessionID` = {0}, `RecentWorld` = {1}, `MacAddress` = '{2}', `HWID` = '{3}', `Pin` = '{4}', `Pic` = '{5}' WHERE AccountName = '{6}'",
+                SessionID,
                 RecentWorld,
                 HexEncoding.byteArrayToString(MacAddress).Replace(" ", ""),
                 HexEncoding.byteArrayToString(HDDSerial).Replace(" ", ""),

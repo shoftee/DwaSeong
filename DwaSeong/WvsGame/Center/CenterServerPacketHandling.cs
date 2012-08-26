@@ -43,7 +43,7 @@ namespace WvsGame.Center
             int gid = packet.ReadInt();
             string name = packet.ReadMapleString();
             int point = packet.ReadInt();
-            int membercap = packet.ReadShort();
+            int membercap = packet.ReadInt();
             int emblemBG = packet.ReadShort();
             int emblemBGC = packet.ReadShort();
             int emblem = packet.ReadShort();

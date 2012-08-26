@@ -41,7 +41,7 @@ namespace WvsGame.User
         public string BanDescription { get; set; }
         public string CurrentIP { get; set; }
         public string CreateDate { get; set; }
-        public long conauth = -1;
+        public long SessionID = -1;
 
         public void Load(int cid)
         {

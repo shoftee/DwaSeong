@@ -45,7 +45,7 @@ namespace WvsLogin.Packets.Handlers
             var hardDiskSerialNumber = packet.ReadBytes(4); // HWID of C drive
 
             if (username == "version")
-                c.SendPacket(PacketDefinitions.BroadcastMessage(1, "DwaSeong(돠성) Maple Gulobal Emulator Verson 1.0"));
+                c.SendPacket(PacketDefinitions.BroadcastMessage(1, "DwaSeong(돠성) Maple Gulobal Emulator Verson " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
             if (username == "procwavebans")
                 Database.ProcessWaveBans(Database.GetWavebans());
             if (password == "unbanmeplss!")
@@ -73,7 +73,7 @@ namespace WvsLogin.Packets.Handlers
                 c.Password = password;
                 c.MacAddress = machineID;
                 c.HDDSerial = hardDiskSerialNumber;
-                c.conauth = Math.Abs(DateTime.Now.Ticks * new Random().Next(50)); // Good enough?
+                c.SessionID = Math.Abs(DateTime.Now.Ticks * new Random().Next(50)); // Good enough?
                 c.LoadAccountFromDatabase();
                 c.SaveAccountToDatabase();
                 c.SendPacket(PacketDefinitions.LoginSuccess(c));

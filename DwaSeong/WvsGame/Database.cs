@@ -653,7 +653,7 @@ namespace WvsGame
                 acc.BanDescription = commandreader["BanDescription"].ToString();
                 acc.MacAddress = HexEncoding.GetBytes(commandreader["MacAddress"].ToString());
                 acc.HDDSerial = HexEncoding.GetBytes(commandreader["HWID"].ToString());
-                acc.conauth = Convert.ToInt64(commandreader["conauth"]);
+                acc.SessionID = Convert.ToInt64(commandreader["SessionID"]);
                 acc.CreateDate = commandreader["CreateDate"].ToString();
             }
             commandreader.Close();
