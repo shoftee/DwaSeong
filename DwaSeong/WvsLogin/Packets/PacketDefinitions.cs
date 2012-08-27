@@ -422,5 +422,12 @@ namespace WvsLogin.Packets
             }
             return packet.ToArray();
         }
+
+        public static byte[] KeepAlive()
+        {
+            var packet = new PacketWriter();
+            packet.WriteOpcode(SendOps.AliveReq);
+            return packet.ToArray();
+        }
     }
 }

@@ -46,11 +46,11 @@ namespace WvsLogin.User
         public int TradeBlock { get; set; }
         public long TradeBlockExpiration { get; set; }
 
+        public long LastKeepAlive { get; set; }
         public bool Migrate = false;
+        public int LoginFailCount { get; set; }
 
         public List<Character> Characters { get; set; }
-
-        public int failure { get; set; }
 
         public Client(Session pSession)
         {

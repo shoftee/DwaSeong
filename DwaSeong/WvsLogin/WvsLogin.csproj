@@ -62,6 +62,7 @@
     <Compile Include="Packets\Handlers\CheckPassword.cs" />
     <Compile Include="Packets\Handlers\CheckUserLimit.cs" />
     <Compile Include="Packets\Handlers\ClientError.cs" />
+    <Compile Include="Packets\Handlers\KeepAlive.cs" />
     <Compile Include="Packets\Handlers\CreateNewCharacter.cs" />
     <Compile Include="Packets\Handlers\DeleteCharacter.cs" />
     <Compile Include="Packets\Handlers\SelectCharacter.cs" />

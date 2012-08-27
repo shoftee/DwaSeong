@@ -63,6 +63,7 @@ namespace WvsLogin.Packets
             RegisterHandler(RecvOps.SelectCharacter, new SelectCharacter());
             RegisterHandler(RecvOps.CreateNewCharacterRequest, new CreateNewCharacter());
             RegisterHandler(RecvOps.DeleteCharacterRequest, new DeleteCharacter());
+            RegisterHandler(RecvOps.KeepAlive, new KeepAlive());
             RegisterHandler(RecvOps.ClientError, new ClientError());
         }
 

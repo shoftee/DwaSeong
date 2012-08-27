@@ -7,3 +7,8 @@ C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\Common.pdb
 C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
 C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\Common\obj\Debug\Common.dll
 C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\Common\obj\Debug\Common.pdb
+D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\Common.dll
+D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\Common.pdb
+D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\Common\obj\Debug\Common.dll
+D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\Common\obj\Debug\Common.pdb
