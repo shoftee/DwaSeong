@@ -11,3 +11,5 @@ C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsLogin\obj\Debug\WvsLogin.pdb
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\WvsLogin\obj\Debug\WvsLogin.csprojResolveAssemblyReference.cache
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\WvsLogin\obj\Debug\WvsLogin.exe
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\WvsLogin\obj\Debug\WvsLogin.pdb
+D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsLogin.exe
+D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsLogin.pdb

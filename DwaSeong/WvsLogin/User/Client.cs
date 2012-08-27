@@ -58,6 +58,19 @@ namespace WvsLogin.User
             mSession = pSession;
             mSession.OnPacketReceived += mSession_OnPacketReceived;
             mSession.OnClientDisconnected += mSession_OnClientDisconnected;
+            LastKeepAlive = DateTime.Now.ToFileTime();
+            new System.Threading.Thread(() =>
+            {
+                while (mSession.Socket.Connected)
+                {
+                    if (DateTime.Now.ToFileTime() - LastKeepAlive > DateTime.FromFileTime(0).AddSeconds(15).ToFileTime())
+                    {
+                        mSession.Socket.Close();
+                        Logger.Write(Logger.LogTypes.연결, "KeepAlive timeout {0}, {1}, {2}", DateTime.Now.ToFileTime(), LastKeepAlive, DateTime.FromFileTime(0).AddSeconds(15).ToFileTime());
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+            }).Start();
         }
 
         public override string ToString()

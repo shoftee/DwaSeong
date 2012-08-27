@@ -30,7 +30,8 @@ namespace WvsGame.Packets.Handlers
     {
         public void handlePacket(Client c, PacketReader packet)
         {
-
+            c.LastKeepAlive = DateTime.Now.ToFileTime();
+            c.SendPacket(CClientSocket.KeepAlive());
         }
     }
 }

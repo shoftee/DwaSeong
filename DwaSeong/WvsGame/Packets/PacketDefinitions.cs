@@ -337,6 +337,16 @@ namespace WvsGame.Packets
         }
     }
 
+    public static class CClientSocket
+    {
+        public static byte[] KeepAlive()
+        {
+            var packet = new PacketWriter();
+            packet.WriteOpcode(SendOps.AliveReq);
+            return packet.ToArray();
+        }
+    }
+
     public static class CWvsContext
     {
         public static byte[] GMBoard(string url)
