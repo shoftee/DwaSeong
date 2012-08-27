@@ -81,7 +81,7 @@ namespace WvsLogin.Packets.Handlers
 
         public void handlePacket(Client c, PacketReader packet)
         {
-            string charname = packet.ReadMapleString();
+            string charname = Database.MySqlEscape(packet.ReadMapleString());
             int jobtype = packet.ReadInt();
             short specialjobtype = packet.ReadShort();
             byte gender = packet.ReadByte();

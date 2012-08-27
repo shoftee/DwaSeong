@@ -38,8 +38,7 @@ namespace WvsGame.Packets.Handlers
                 string[] splitted = message.Replace("@", "").Split(' ');
                 int status = CommandProcessing.HandlePlayerCommand(c, splitted);
                 if (status == 0)
-                    return;
-                    //c.SendPacket(CField.ChatMessage(0x0C, "Success! Execute Player Command " + message));
+                    c.SendPacket(CField.ChatMessage(0x0C, "Success! Execute Player Command " + message));
                 else if (status == 1)
                     c.SendPacket(CField.ChatMessage(0x0C, "Fail! NOT EXIST Execute Player Command " + message));
                 else if (status == 2)

@@ -63,6 +63,8 @@ namespace WvsGame.User
 
         void mSession_OnClientDisconnected(Session session)
         {
+            if (!mAccount.Migrate)
+                Database.ExecuteQuery("UPDATE account SET Connected = 0 WHERE AccountName = '{0}';", mAccount.Username);
             Logger.Write(Logger.LogTypes.연결, "클라이언트 {0} 끊겨짐", session.Socket.RemoteEndPoint.ToString());
             Program.mServer.Clients.Remove(this);
         }

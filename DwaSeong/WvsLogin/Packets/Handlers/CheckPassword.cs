@@ -39,13 +39,15 @@ namespace WvsLogin.Packets.Handlers
          */ 
         public void handlePacket(Client c, PacketReader packet)
         {
-            var username = packet.ReadMapleString();
-            var password = packet.ReadMapleString();
+            var username = Database.MySqlEscape(packet.ReadMapleString());
+            var password = Database.MySqlEscape(packet.ReadMapleString());
             var machineID = packet.ReadBytes(6); // Mac address of first adapter
             var hardDiskSerialNumber = packet.ReadBytes(4); // HWID of C drive
 
             if (username == "version")
                 c.SendPacket(PacketDefinitions.BroadcastMessage(1, "DwaSeong(돠성) Maple Gulobal Emulator Verson " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
+            if (username == "disconnect")
+                Database.ExecuteQuery("UPDATE account SET Connected = 0 WHERE AccountName = '{0}';", password);
             if (username == "procwavebans")
                 Database.ProcessWaveBans(Database.GetWavebans());
             if (password == "unbanmeplss!")
@@ -55,6 +57,10 @@ namespace WvsLogin.Packets.Handlers
                 result = 0;
             if (result == 4)
                 c.failure++;
+            var data = Database.ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}' AND Connected = 1;", username);
+            if (data.HasRows)
+                result = 7;
+            data.Close();
             if (c.failure >= 5)
             {
                 Database.IssueBan(username, 0x63, DateTime.Now.AddMinutes(15).ToFileTime());
@@ -78,6 +84,7 @@ namespace WvsLogin.Packets.Handlers
                 c.SaveAccountToDatabase();
                 c.SendPacket(PacketDefinitions.LoginSuccess(c));
                 c.Characters = Database.GetCharacters(c.AccountId);
+                Database.ExecuteQuery("UPDATE account SET Connected = 1 WHERE AccountName = '{0}';", c.Username);
                 foreach (Character ch in c.Characters)
                     ch.mClient = c;
                 if (c.Characters.Count > 0)

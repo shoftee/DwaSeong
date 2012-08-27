@@ -46,6 +46,8 @@ namespace WvsLogin.User
         public int TradeBlock { get; set; }
         public long TradeBlockExpiration { get; set; }
 
+        public bool Migrate = false;
+
         public List<Character> Characters { get; set; }
 
         public int failure { get; set; }
@@ -78,6 +80,8 @@ namespace WvsLogin.User
 
         void mSession_OnClientDisconnected(Session session)
         {
+            if (!Migrate)
+                Database.ExecuteQuery("UPDATE account SET Connected = 0 WHERE AccountName = '{0}';", Username);
             Logger.Write(Logger.LogTypes.연결, "클라이언트 {0} 끊겨짐", session.Socket.RemoteEndPoint.ToString());
             Program.mServer.Clients.Remove(this);
         }

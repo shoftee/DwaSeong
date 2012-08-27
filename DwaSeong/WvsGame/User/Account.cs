@@ -42,6 +42,7 @@ namespace WvsGame.User
         public string CurrentIP { get; set; }
         public string CreateDate { get; set; }
         public long SessionID = -1;
+        public bool Migrate = false;
 
         public void Load(int cid)
         {

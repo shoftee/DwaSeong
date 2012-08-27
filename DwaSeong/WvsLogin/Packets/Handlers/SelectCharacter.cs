@@ -37,14 +37,17 @@ D 43 41 2D 36 31 2D 46 32 2D 41 30 15 00 36 34 33 31 35 30 31 46 32 35 43 32 5F
     {
         public void handlePacket(Client c, PacketReader packet)
         {
-            string pic = packet.ReadMapleString();
+            string pic = Database.MySqlEscape(packet.ReadMapleString());
             int cid = packet.ReadInt();
             string macs = packet.ReadMapleString(); // i should probably do something with these lol
             string HWID = packet.ReadMapleString(); // ?_hdd serial
             if (pic != c.Pic)
                 c.SendPacket(PacketDefinitions.BadPic());
-            else 
+            else
+            {
+                c.Migrate = true;
                 Program.mServer.GetCenterServerById(c.RecentWorld).mCenterConnection.mSession.SendPacket(CenterServerPacketDefinitions.RequestMigrate(c.AccountId, cid, c.RecentChannel));
+            }
         }
     }
 }

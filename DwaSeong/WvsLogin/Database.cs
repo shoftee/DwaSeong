@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 using System.Reflection;
 using WvsLogin.User;
@@ -53,6 +54,14 @@ namespace WvsLogin
             command.ExecuteNonQuery();
         }
 
+        public static MySqlDataReader ExecuteDataQuery(string query, params object[] objects)
+        {
+            query = string.Format(query, objects);
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            return command.ExecuteReader();
+        }
+
         /// <summary>
         /// Checks the login status of the account
         /// </summary>
@@ -69,10 +78,7 @@ namespace WvsLogin
         public static int CheckPassword(string username, string password)
         {
             int retval = -1;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 string pass = commandreader["PasswordHash"].ToString();
@@ -95,14 +101,17 @@ namespace WvsLogin
             commandreader.Close();
             return retval;
         }
+        
+        public static string MySqlEscape(string usString)
+        {
+            // http://au.php.net/manual/en/function.mysql-real-escape-string.php
+            return Regex.Replace(usString, @"[\r\n\x00\x1a\\'""]", @"\$0");
+        }
 
         public static byte GetBanReason(string username)
         {
             byte ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToByte(commandreader["IsBanned"]);
@@ -114,10 +123,7 @@ namespace WvsLogin
         public static long GetBanExpiration(string username)
         {
             long ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToInt64(commandreader["BanExpiration"]);
@@ -129,10 +135,7 @@ namespace WvsLogin
         public static int GetAccountId(string username)
         {
             int ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToInt32(commandreader["AccountId"]);
@@ -144,10 +147,7 @@ namespace WvsLogin
         public static int GetAccountId(int cid)
         {
             int ret = 0;
-            string query = "SELECT * FROM character_data WHERE id = " + cid + ";";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM character_data WHERE id = '{0}'", cid);
             while (commandreader.Read())
             {
                 ret = Convert.ToInt32(commandreader["AccountId"]);
@@ -159,10 +159,7 @@ namespace WvsLogin
         public static string GetPin(string username)
         {
             string ret = string.Empty;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = commandreader["Pin"].ToString();
@@ -174,10 +171,7 @@ namespace WvsLogin
         public static string GetPic(string username)
         {
             string ret = string.Empty;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToString(commandreader["Pic"]);
@@ -189,10 +183,7 @@ namespace WvsLogin
         public static int GetRecentWorld(string username)
         {
             int ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToInt32(commandreader["RecentWorld"]);
@@ -204,10 +195,7 @@ namespace WvsLogin
         public static int GetAdmin(string username)
         {
             int ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToInt32(commandreader["Admin"]);
@@ -219,10 +207,7 @@ namespace WvsLogin
         public static int GetTradeBlock(string username)
         {
             int ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToInt32(commandreader["IsTradeBanned"]);
@@ -234,10 +219,7 @@ namespace WvsLogin
         public static long GetTradeBlockExpiration(string username)
         {
             long ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToInt64(commandreader["TradeBanExpiration"]);
@@ -249,10 +231,7 @@ namespace WvsLogin
         public static byte CheckDuplicatedID(string charname)
         {
             byte ret = 0;
-            string query = "SELECT * FROM character_data where Name = '" + charname + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM character_data where Name = '{0}'", charname);
             if (commandreader.HasRows)
                 ret = 1;
             commandreader.Close();
@@ -261,31 +240,18 @@ namespace WvsLogin
 
         public static void DeleteCharacter(int cid)
         {
-            string query = "DELETE FROM character_data WHERE id = @cid";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@cid", cid);
-            command.ExecuteNonQuery();
+            ExecuteQuery("DELETE FROM character_data WHERE id = {0}", cid);
         }
 
         public static void IssueBan(string user, byte reason, long length, string desc = "")
         {
-            string query = "UPDATE account SET IsBanned = @IsBanned, BanExpiration = @expire, BanDescription = @desc WHERE AccountName = @user";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            desc += "(" + DateTime.Now + ")";
-            command.Parameters.AddWithValue("@IsBanned", reason);
-            command.Parameters.AddWithValue("@expire", length);
-            command.Parameters.AddWithValue("@desc", desc);
-            command.Parameters.AddWithValue("@user", user);
-            command.ExecuteNonQuery();
+            ExecuteQuery("UPDATE account SET IsBanned = {0}, BanExpiration = {1}, BanDescription = {2} WHERE AccountName = {3}", reason, length, desc + "(" + DateTime.Now + ")", user);
         }
 
         public static List<Character> GetCharacters(int accountid)
         {
             List<Character> ret = new List<Character>();
-            string query = "SELECT * FROM character_data WHERE AccountId = " + accountid;
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM character_data WHERE AccountId = {0};", accountid);
             while (commandreader.Read())
             {
                 Character chr = new Character();
@@ -303,10 +269,7 @@ namespace WvsLogin
             commandreader.Close();
             foreach (Character chr in ret)
             {
-                query = "SELECT * FROM character_primarystats WHERE CharacterId = " + chr.mID;
-                command = new MySqlCommand(query, connection);
-                command.ExecuteNonQuery();
-                commandreader = command.ExecuteReader();
+                commandreader = ExecuteDataQuery("SELECT * FROM character_primarystats WHERE CharacterId = {0};", chr.mID);
                 while (commandreader.Read())
                 {
                     chr.mPrimaryStats.Level = Convert.ToByte(commandreader["Level"]);
@@ -333,10 +296,7 @@ namespace WvsLogin
                     chr.mPrimaryStats.BattleEXP = Convert.ToInt32(commandreader["BattleExp"]);
                 }
                 commandreader.Close();
-                query = "SELECT * FROM character_traits WHERE CharacterId = " + chr.mID;
-                command = new MySqlCommand(query, connection);
-                command.ExecuteNonQuery();
-                commandreader = command.ExecuteReader();
+                commandreader = ExecuteDataQuery("SELECT * FROM character_traits WHERE CharacterId = {0};", chr.mID);
                 while (commandreader.Read())
                 {
                     chr.mTraits.Ambition =        Convert.ToInt32(commandreader["Ambition"]);
@@ -362,36 +322,39 @@ namespace WvsLogin
 
         public static void SaveCharacter(Character chr, bool newchr = false)
         {
-            string query = "UPDATE `character_data` SET `Name` = @Name, `Gender`= @Gender, `Skin` = @Skin, `Hair` = @Hair, `Face` = @Face, `Map` = @Map, `MapPosition` = @MapPosition, `Meso` = @Meso WHERE id = @CharacterId;";
+            var commandreader = ExecuteDataQuery("UPDATE `character_data` SET `Name` = '{0}', `Gender`= {1}, `Skin` = {2}, `Hair` = {3}, `Face` = {4}, `Map` = {5}, `MapPosition` = {6}, `Meso` = {7} WHERE id = {8};",
+                chr.mName,
+                chr.mGender,
+                chr.mSkin,
+                chr.mHair,
+                chr.mFace,
+                chr.mMap,
+                chr.mMapPosition,
+                chr.mMeso,
+                chr.mID);
             if (newchr)
-                query = "INSERT `character_data` (AccountId, Name, Gender, Skin, Hair, Face, Map, MapPosition, Meso) VALUES (@AccountId, @Name, @Gender, @Skin, @Hair, @Face, @Map, @MapPosition, @Meso);";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@AccountId",              chr.mClient.AccountId);
-            command.Parameters.AddWithValue("@Name",                   chr.mName);
-            command.Parameters.AddWithValue("@Gender",                 chr.mGender);
-            command.Parameters.AddWithValue("@Skin",                   chr.mSkin);
-            command.Parameters.AddWithValue("@Hair",                   chr.mHair);
-            command.Parameters.AddWithValue("@Face",                   chr.mFace);
-            command.Parameters.AddWithValue("@Map",                    chr.mMap);
-            command.Parameters.AddWithValue("@MapPosition",            chr.mMapPosition);
-            command.Parameters.AddWithValue("@Meso",                   chr.mMeso);
-            command.Parameters.AddWithValue("@CharacterId",            chr.mID);
-            command.ExecuteNonQuery();
+                commandreader = ExecuteDataQuery("INSERT `character_data` (AccountId, Name, Gender, Skin, Hair, Face, Map, MapPosition, Meso) VALUES ({0}, '{1}', {2}, {3}, {4}, {5}, {6}, {7}, {8});",
+                    chr.mClient.AccountId,
+                    chr.mName,
+                    chr.mGender,
+                    chr.mSkin,
+                    chr.mHair,
+                    chr.mFace,
+                    chr.mMap,
+                    chr.mMapPosition,
+                    chr.mMeso);
             
-            query = "SELECT id FROM character_data WHERE AccountId = " + chr.mClient.AccountId;
-            command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            commandreader = ExecuteDataQuery("SELECT id FROM character_data WHERE AccountId = {0};", chr.mClient.AccountId);
             while (commandreader.Read())
             {
                 chr.mID = Convert.ToInt32(commandreader["id"]);
             }
             commandreader.Close();
 
-            query = "UPDATE `character_primarystats` SET `Level` = @Level, `Job` = @Job, `Str` = @Str, `Dex` = @Dex, `Int` = @Int, `Luk` = @Luk, `Hp` = @Hp, `MaxHp` = @MaxHp, `Mp` = @Mp, `MaxMp` = @MaxMp, `Ap` = @Ap, `Sp` = @Sp, `Exp` = @Exp, `Fame` = @Fame, `DemonSlayerAccessory` = @DemonSlayerAccessory, `Fatigue` = @Fatigue, `BattlePoints` = @BattlePoints, `BattleExp` = @BattleExp WHERE CharacterId = @CharacterId;";
+            string query = "UPDATE `character_primarystats` SET `Level` = @Level, `Job` = @Job, `Str` = @Str, `Dex` = @Dex, `Int` = @Int, `Luk` = @Luk, `Hp` = @Hp, `MaxHp` = @MaxHp, `Mp` = @Mp, `MaxMp` = @MaxMp, `Ap` = @Ap, `Sp` = @Sp, `Exp` = @Exp, `Fame` = @Fame, `DemonSlayerAccessory` = @DemonSlayerAccessory, `Fatigue` = @Fatigue, `BattlePoints` = @BattlePoints, `BattleExp` = @BattleExp WHERE CharacterId = @CharacterId;";
             if (newchr)
                 query = "INSERT `character_primarystats` (CharacterId, Level, Job, Str, Dex, `Int`, Luk, Hp, MaxHp, Mp, MaxMp, Ap, Sp, Exp, Fame, DemonSlayerAccessory, Fatigue, BattlePoints, BattleExp) VALUES (@CharacterId, @Level, @Job, @Str, @Dex, @Int, @Luk, @Hp, @MaxHp, @Mp, @MaxMp, @Ap, @Sp, @Exp, @Fame, @DemonSlayerAccessory, @Fatigue, @BattlePoints, @BattleExp);";
-            command = new MySqlCommand(query, connection);
+            MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@Level",                  chr.mPrimaryStats.Level);
             command.Parameters.AddWithValue("@Job",                    chr.mPrimaryStats.Job);
             command.Parameters.AddWithValue("@Str",                    chr.mPrimaryStats.Str);

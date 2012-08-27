@@ -79,10 +79,7 @@ namespace WvsGame
         public static int CheckPassword(string username, string password)
         {
             int retval = -1;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 string pass = commandreader["PasswordHash"].ToString();
@@ -100,7 +97,7 @@ namespace WvsGame
                 else
                     retval = 4;
             }
-            if (commandreader.FieldCount == 0)
+            if (!commandreader.HasRows)
                 retval = 5;
             commandreader.Close();
             return retval;
@@ -109,10 +106,7 @@ namespace WvsGame
         public static byte GetBanReason(string username)
         {
             byte ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToByte(commandreader["IsBanned"]);
@@ -124,10 +118,7 @@ namespace WvsGame
         public static long GetBanExpiration(string username)
         {
             long ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToInt64(commandreader["BanExpiration"]);
@@ -136,17 +127,118 @@ namespace WvsGame
             return ret;
         }
 
-        public static int GetAccountId(int cid)
+        public static int GetAccountId(string username)
         {
             int ret = 0;
-            string query = "SELECT * FROM character_data WHERE id = " + cid + ";";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
             while (commandreader.Read())
             {
                 ret = Convert.ToInt32(commandreader["AccountId"]);
             }
+            commandreader.Close();
+            return ret;
+        }
+
+        public static int GetAccountId(int cid)
+        {
+            int ret = 0;
+            var commandreader = ExecuteDataQuery("SELECT * FROM character_data WHERE id = '{0}'", cid);
+            while (commandreader.Read())
+            {
+                ret = Convert.ToInt32(commandreader["AccountId"]);
+            }
+            commandreader.Close();
+            return ret;
+        }
+
+        public static string GetPin(string username)
+        {
+            string ret = string.Empty;
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
+            while (commandreader.Read())
+            {
+                ret = commandreader["Pin"].ToString();
+            }
+            commandreader.Close();
+            return ret;
+        }
+
+        public static string GetPic(string username)
+        {
+            string ret = string.Empty;
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
+            while (commandreader.Read())
+            {
+                ret = Convert.ToString(commandreader["Pic"]);
+            }
+            commandreader.Close();
+            return ret;
+        }
+
+        public static int GetRecentWorld(string username)
+        {
+            int ret = 0;
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
+            while (commandreader.Read())
+            {
+                ret = Convert.ToInt32(commandreader["RecentWorld"]);
+            }
+            commandreader.Close();
+            return ret;
+        }
+
+        public static int GetAdmin(string username)
+        {
+            int ret = 0;
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
+            while (commandreader.Read())
+            {
+                ret = Convert.ToInt32(commandreader["Admin"]);
+            }
+            commandreader.Close();
+            return ret;
+        }
+
+        public static int GetTradeBlock(string username)
+        {
+            int ret = 0;
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
+            while (commandreader.Read())
+            {
+                ret = Convert.ToInt32(commandreader["IsTradeBanned"]);
+            }
+            commandreader.Close();
+            return ret;
+        }
+
+        public static long GetTradeBlockExpiration(string username)
+        {
+            long ret = 0;
+            var commandreader = ExecuteDataQuery("SELECT * FROM account WHERE AccountName = '{0}'", username);
+            while (commandreader.Read())
+            {
+                ret = Convert.ToInt64(commandreader["TradeBanExpiration"]);
+            }
+            commandreader.Close();
+            return ret;
+        }
+
+        public static byte CheckDuplicatedID(string charname)
+        {
+            byte ret = 0;
+            var commandreader = ExecuteDataQuery("SELECT * FROM character_data where Name = '{0}'", charname);
+            if (commandreader.HasRows)
+                ret = 1;
+            commandreader.Close();
+            return ret;
+        }
+
+        public static int GetCID(string charname)
+        {
+            int ret = 0;
+            var commandreader = ExecuteDataQuery("SELECT * FROM character_data where Name = = '{0}'", charname);
+            while (commandreader.Read())
+                ret = Convert.ToInt32(commandreader["id"]);
             commandreader.Close();
             return ret;
         }
@@ -162,7 +254,7 @@ namespace WvsGame
             {
                 ret = Convert.ToString(commandreader["AccountId"]);
             }
-            commandreader.Close(); 
+            commandreader.Close();
             query = "SELECT * FROM account WHERE AccountID = " + ret + ";";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
@@ -171,121 +263,6 @@ namespace WvsGame
             {
                 ret = Convert.ToString(commandreader["AccountName"]);
             }
-            commandreader.Close();
-            return ret;
-        }
-
-        public static string GetPin(string username)
-        {
-            string ret = string.Empty;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
-            while (commandreader.Read())
-            {
-                ret = commandreader["Pin"].ToString();
-            }
-            commandreader.Close();
-            return ret;
-        }
-
-        public static string GetPic(string username)
-        {
-            string ret = string.Empty;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
-            while (commandreader.Read())
-            {
-                ret = Convert.ToString(commandreader["Pic"]);
-            }
-            commandreader.Close();
-            return ret;
-        }
-
-        public static int GetRecentWorld(string username)
-        {
-            int ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
-            while (commandreader.Read())
-            {
-                ret = Convert.ToInt32(commandreader["RecentWorld"]);
-            }
-            commandreader.Close();
-            return ret;
-        }
-
-        public static int GetAdmin(string username)
-        {
-            int ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
-            while (commandreader.Read())
-            {
-                ret = Convert.ToInt32(commandreader["Admin"]);
-            }
-            commandreader.Close();
-            return ret;
-        }
-
-        public static int GetTradeBlock(string username)
-        {
-            int ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
-            while (commandreader.Read())
-            {
-                ret = Convert.ToInt32(commandreader["IsTradeBanned"]);
-            }
-            commandreader.Close();
-            return ret;
-        }
-
-        public static long GetTradeBlockExpiration(string username)
-        {
-            long ret = 0;
-            string query = "SELECT * FROM account WHERE AccountName = '" + username + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
-            while (commandreader.Read())
-            {
-                ret = Convert.ToInt64(commandreader["TradeBanExpiration"]);
-            }
-            commandreader.Close();
-            return ret;
-        }
-
-        public static byte CheckDuplicatedID(string charname)
-        {
-            byte ret = 0;
-            string query = "SELECT * FROM character_data where Name = '" + charname + "'";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
-            if (commandreader.HasRows)
-                ret = 1;
-            return ret;
-        }
-
-        public static int GetCID(string charname)
-        {
-            int ret = 0;
-            string query = "SELECT * FROM character_data where Name = '" + charname + "'";
-            var command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            MySqlDataReader commandreader = command.ExecuteReader();
-            while (commandreader.Read())
-                ret = Convert.ToInt32(commandreader["id"]);
             commandreader.Close();
             return ret;
         }
@@ -300,14 +277,7 @@ namespace WvsGame
 
         public static void IssueBan(string user, byte reason, long length, string desc = "")
         {
-            string query = "UPDATE account SET IsBanned = @IsBanned, BanExpiration = @expire, BanDescription = @desc WHERE AccountName = @user";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            desc += "(" + DateTime.Now + ")";
-            command.Parameters.AddWithValue("@IsBanned", reason);
-            command.Parameters.AddWithValue("@expire", length);
-            command.Parameters.AddWithValue("@desc", desc);
-            command.Parameters.AddWithValue("@user", user);
-            command.ExecuteNonQuery();
+            ExecuteQuery("UPDATE account SET IsBanned = {0}, BanExpiration = {1}, BanDescription = {2} WHERE AccountName = {3}", reason, length, desc + "(" + DateTime.Now + ")", user);
         }
 
         public static Character GetCharacter(int cid)
@@ -671,8 +641,8 @@ namespace WvsGame
                 Skill skill = new Skill();
                 skill.SkillID = Convert.ToInt32(commandreader["skillid"]);
                 skill.SkillLevel = Convert.ToInt32(commandreader["level"]);
-                skill.SkillMastery  = Convert.ToInt32(commandreader["mastery"]);
-                skill.Expiration   = Convert.ToInt64(commandreader["expiration"]);
+                skill.SkillMastery = Convert.ToInt32(commandreader["mastery"]);
+                skill.Expiration = Convert.ToInt64(commandreader["expiration"]);
                 skill.Cooldown = Convert.ToInt64(commandreader["cooldown"]);
                 ret.Add(skill);
             }
