@@ -88,14 +88,20 @@ namespace WvsGame.User
         {
             return new PacketWriter(CUserPool.PlayerLeaveField(mID));
         }
+
         public List<IMovePath> ParseMovementPath(PacketReader packet)
         {
+            var Fragments = new List<IMovePath>();
             int portalCount = packet.ReadByte();
             int crc = packet.ReadInt();
             int tickcount = packet.ReadInt();
             mPosition = new System.Drawing.Point(packet.ReadShort(), packet.ReadShort());
             byte[] movement =  packet.ReadBytes(packet.Length - packet.Position);
             packet.ReadBytes(4);
+
+
+
+            return Fragments;
         }
         /*
         public List<IMovePath> ParseMovementPath(PacketReader packet)
