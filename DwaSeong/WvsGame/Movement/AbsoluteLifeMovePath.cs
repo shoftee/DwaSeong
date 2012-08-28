@@ -24,7 +24,7 @@ namespace WvsGame.Movement
             Offset = offset;
         }
 
-       public void Encode(PacketWriter packet)
+        public void Encode(PacketWriter packet)
         {
             packet.WriteByte(Type);
             packet.WritePos(Position);

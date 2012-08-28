@@ -510,7 +510,7 @@ namespace WvsGame.Packets
 
             packet.WriteShort(chr.mPosition.X);
             packet.WriteShort(chr.mPosition.Y);
-            packet.WriteByte(0); // chr.mStance
+            packet.WriteByte(chr.mStance); // chr.mStance
             packet.WriteShort(chr.mFoothold);
 
             packet.WriteByte(0);

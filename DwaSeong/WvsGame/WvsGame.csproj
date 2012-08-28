@@ -89,7 +89,6 @@
     <Compile Include="GameServer.cs" />
     <Compile Include="Movement\AbsoluteLifeMovePath.cs" />
     <Compile Include="Movement\IMovePath.cs" />
-    <Compile Include="Movement\MovementParser.cs" />
     <Compile Include="Networking\ClientAcceptor.cs" />
     <Compile Include="Packets\Handlers\EnterServer.cs" />
     <Compile Include="Packets\Handlers\KeepAlive.cs" />

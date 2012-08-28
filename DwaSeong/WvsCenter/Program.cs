@@ -35,7 +35,10 @@ namespace WvsCenter
             Console.Title = "센터서버 - 한국메이플스토리 버젼 " + Common.Config.MajorVersion;
             Console.ForegroundColor = ConsoleColor.White;
             if (args.Length < 2)
+            {
                 MessageBox.Show("Invalid argument length", "Launch error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             else
             {
                 CenterIMGPath = args[0];

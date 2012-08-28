@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MapleLib.PacketLib;
 using WvsGame.Packets;
+using WvsGame.Movement;
 
 namespace WvsGame.Field.Entity
 {
@@ -37,9 +38,9 @@ namespace WvsGame.Field.Entity
             return new PacketWriter();
         }
 
-        public void ParseMovementPath(PacketReader packet)
+        public List<IMovePath> ParseMovementPath(PacketReader packet)
         {
-
+            return new List<IMovePath>();
         }
 
         public PacketWriter GenerateSpawnPacket()
