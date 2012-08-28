@@ -51,6 +51,7 @@ namespace WvsGame.User
                             mSession.Socket.Close();
                             Logger.Write(Logger.LogTypes.연결, "KeepAlive timeout {0}, {1}, {2}", DateTime.Now.ToFileTime(), LastKeepAlive, DateTime.FromFileTime(0).AddSeconds(15).ToFileTime());
                         }
+                        SendPacket(CClientSocket.KeepAlive());
                         System.Threading.Thread.Sleep(1000);
                     }
                 }).Start();
