@@ -1,5 +1,5 @@
 ﻿/*
-	This file is part of the RiceMS MapleStory Server
+	This file is part of the DwaSeong MapleStory Server
     Copyright (C) 2012 "XiaoKia" <xiaokia@naver.com> 
 
     This program is free software: you can redistribute it and/or modify

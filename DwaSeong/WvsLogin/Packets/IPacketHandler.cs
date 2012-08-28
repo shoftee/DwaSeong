@@ -1,5 +1,5 @@
 ﻿/*
-	This file is part of the RiceMS MapleStory Server
+	This file is part of the DwaSeong MapleStory Server
     Copyright (C) 2012 "XiaoKia" <xiaokia@naver.com> 
 
     이 프로그램은 무료 소프트웨어 입니다: GNU Affero General Public 
