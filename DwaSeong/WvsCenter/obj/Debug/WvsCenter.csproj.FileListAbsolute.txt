@@ -3,13 +3,13 @@ c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\BinSvr\WvsCenter.exe
 c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\BinSvr\WvsCenter.pdb
 c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\WvsCenter\obj\Debug\WvsCenter.exe
 c:\users\guo\documents\visual studio 2012\Projects\DwaSeong\WvsCenter\obj\Debug\WvsCenter.pdb
-C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsCenter.exe
-C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsCenter.pdb
-C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsCenter\obj\Debug\WvsCenter.csprojResolveAssemblyReference.cache
-C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsCenter\obj\Debug\WvsCenter.exe
-C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsCenter\obj\Debug\WvsCenter.pdb
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsCenter.exe
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsCenter.pdb
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\WvsCenter\obj\Debug\WvsCenter.csprojResolveAssemblyReference.cache
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\WvsCenter\obj\Debug\WvsCenter.exe
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\WvsCenter\obj\Debug\WvsCenter.pdb
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsCenter.exe
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsCenter.pdb
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsCenter\obj\Debug\WvsCenter.csprojResolveAssemblyReference.cache
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsCenter\obj\Debug\WvsCenter.exe
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsCenter\obj\Debug\WvsCenter.pdb

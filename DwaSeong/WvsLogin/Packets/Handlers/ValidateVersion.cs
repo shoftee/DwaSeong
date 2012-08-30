@@ -38,7 +38,7 @@ namespace WvsLogin.Packets.Handlers
             else
             {
                 Logger.Write(Logger.LogTypes.경고, "Client at {0} connected with invalid version ({1},{2},{3})", c.mSession.Socket.RemoteEndPoint.ToString(), region, majorVersion, minorVersion);
-                c.mSession.Socket.Close();
+                c.Close();
             }
         }
     }

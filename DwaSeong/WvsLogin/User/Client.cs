@@ -63,18 +63,19 @@ namespace WvsLogin.User
             {
                 while (mSession.Socket.Connected)
                 {
-                    if (DateTime.Now.ToFileTime() - LastKeepAlive > DateTime.FromFileTime(0).AddSeconds(15).ToFileTime())
-                    {
-                        mSession.Socket.Close();
-                        Logger.Write(Logger.LogTypes.연결, "KeepAlive timeout {0}, {1}, {2}", DateTime.Now.ToFileTime(), LastKeepAlive, DateTime.FromFileTime(0).AddSeconds(15).ToFileTime());
-                    }
+                    //if (DateTime.Now.ToFileTime() - LastKeepAlive > DateTime.FromFileTime(0).AddSeconds(30).ToFileTime())
+                    //{
+                    //    mSession.Socket.Close();
+                    //    Logger.Write(Logger.LogTypes.연결, "KeepAlive timeout {0}, {1}, {2}", DateTime.Now.ToFileTime(), LastKeepAlive, DateTime.FromFileTime(0).AddSeconds(15).ToFileTime());
+                    //    return;
+                    //}
                     SendPacket(PacketDefinitions.KeepAlive());
                     
                     System.Threading.Thread.Sleep(1000);
                 }
             }).Start();
         }
-
+        
         public override string ToString()
         {
             return AccountId + "," + MacAddress.ToString2s() + "," + HDDSerial.ToString2s();
@@ -104,6 +105,12 @@ namespace WvsLogin.User
         public void SendPacket(byte[] packet)
         {
             mSession.SendPacket(packet);
+        }
+
+        public void Close()
+        {
+            Database.ExecuteQuery("UPDATE account SET Connected = 0 WHERE AccountName = '{0}';", Username);
+            mSession.Socket.Close();
         }
 
         public void LoadAccountFromDatabase()

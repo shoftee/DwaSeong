@@ -17,7 +17,7 @@ namespace WvsGame.Packets.Handlers
             int tickcount = packet.ReadInt();
             c.mCharacter.mPosition = new System.Drawing.Point(packet.ReadShort(), packet.ReadShort());
             packet.ReadBytes(4);
-            c.mCharacter.ParseMovementPath(packet);
+            //c.mCharacter.ParseMovementPath(packet);
             //Program.mServer.Fields[c.mCharacter.mField][c.mCharacter.mFieldInstance].SendPacket(c, CField.UserMove(c.mCharacter.mID, c.mCharacter.mPosition, MovementParser.ParseMovementPath(packet)));
             Program.mServer.Fields[c.mCharacter.mField][c.mCharacter.mFieldInstance].SendPacket(c, CField.UserMove(c.mCharacter.mID, c.mCharacter.mPosition, packet.ReadBytes(packet.Length - packet.Position)));
         }
