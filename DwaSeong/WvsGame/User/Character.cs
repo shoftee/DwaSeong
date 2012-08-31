@@ -96,14 +96,13 @@ namespace WvsGame.User
             int crc = packet.ReadInt();
             int tickcount = packet.ReadInt();
             mPosition = new System.Drawing.Point(packet.ReadShort(), packet.ReadShort());
-            byte[] movement =  packet.ReadBytes(packet.Length - packet.Position);
             packet.ReadBytes(4);
 
 
 
             return Fragments;
         }
-        /*
+        
         public List<IMovePath> ParseMovementPath(PacketReader packet)
         {
             int fragments = packet.ReadByte();
@@ -121,11 +120,13 @@ namespace WvsGame.User
                         goto case 46;
                     case 16:
                     case 44:
-                        xOffset = packet.ReadShort();
-                        yOffset = packet.ReadShort();
-                        goto case 46;
                     case 45:
                     case 46:
+                        if (fragmentType != 44)
+                        {
+                            xOffset = packet.ReadShort();
+                            yOffset = packet.ReadShort();
+                        }
                         x = packet.ReadShort();
                         y = packet.ReadShort();
                         xWobble = packet.ReadShort();
@@ -206,13 +207,13 @@ namespace WvsGame.User
                         //EquipChangeMovement(readbyte)
                         break;
                     default:
-                        Logger.Write(Logger.LogTypes.경고, "NEW MOVEMENT {0} : {1}", fragmentType, /*packet.ToArray().ToString2s()"ㅋㅋ");
+                        Logger.Write(Logger.LogTypes.경고, "NEW MOVEMENT {0} : {1}", fragmentType, /*packet.ToArray().ToString2s()*/"ㅋㅋ");
                         break;
                 }
             }
             return Fragments;
         }
-*/
+
         public PacketWriter GenerateMovementPath()
         {
             return new PacketWriter();

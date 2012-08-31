@@ -75,6 +75,7 @@ namespace WvsGame
             Logger.LogInit("Caching WZ Field Data", new _Delegate(CacheWZFieldData));
             Logger.LogInit("Caching WZ Skill Data", new _Delegate(CacheWZSkillData));
             Logger.LogInit("Initializing field data", new _Delegate(InitializeFieldData));
+            Logger.LogInit("Cleaning up", new _Delegate(CleanUp));
             center.mCenterConnection = new CenterServerConnection {mCenterServer = center};
             Logger.LogInit("Establishing CenterServer connection for world " + center.Name, new _Delegate(center.mCenterConnection.Connect));
             Logger.Write(Logger.LogTypes.정보, "Server initialized in {0} milliseconds", DateTime.Now.Subtract(time).TotalMilliseconds);
@@ -217,6 +218,22 @@ namespace WvsGame
                     Fields[f.Key].Add(f.Value.Copy());
                     //Fields[f.Key].Add(ObjectClone.Clone<Field>(f.Value));  // SERIALIZATION = SLOW GARBAGE
                 }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.ToString());
+                return false;
+            }
+        }
+
+        private bool CleanUp()
+        {
+            try
+            {
+                //release players?
+                Database.ExecuteQuery("UPDATE account SET Connected = 0 WHERE RecentChannel = {0};", ServerId);
+
                 return true;
             }
             catch (Exception e)
