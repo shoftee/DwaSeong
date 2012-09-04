@@ -55,6 +55,7 @@ namespace WvsGame.Packets
             RegisterHandler(RecvOps.EnterServer, new EnterServer());
             RegisterHandler(RecvOps.KeepAlive, new KeepAlive());
             RegisterHandler(RecvOps.PublicChat, new PublicChat());
+            RegisterHandler(RecvOps.TransferField, new TransferField());
             RegisterHandler(RecvOps.UserMove, new UserMove());
         }
 

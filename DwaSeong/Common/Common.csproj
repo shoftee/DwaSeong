@@ -45,6 +45,7 @@
     <Compile Include="Guild.cs" />
     <Compile Include="ICopyable.cs" />
     <Compile Include="INIFile.cs" />
+    <Compile Include="MovePath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools.cs" />
   </ItemGroup>

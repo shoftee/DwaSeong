@@ -90,6 +90,7 @@
     <Compile Include="Movement\AbsoluteLifeMovePath.cs" />
     <Compile Include="Movement\IMovePath.cs" />
     <Compile Include="Networking\ClientAcceptor.cs" />
+    <Compile Include="Packets\Handlers\TransferField.cs" />
     <Compile Include="Packets\Handlers\EnterServer.cs" />
     <Compile Include="Packets\Handlers\KeepAlive.cs" />
     <Compile Include="Packets\Handlers\UserMove.cs" />

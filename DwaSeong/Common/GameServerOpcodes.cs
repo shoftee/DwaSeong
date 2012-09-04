@@ -89,7 +89,7 @@ namespace Common
 
         //CUserRemote::OnPacket
         UserMove = 0x11C,
-        SetActivePOrtableCHair = 0x12D,
+        SetActivePortableCHair = 0x12D,
         AvatarModified = 0x12E,
         SetTemporaryStat = 0x130,
         ResetTemporaryStat = 0x131,
@@ -122,6 +122,7 @@ namespace Common
         ClientError = 0x2F,
         SelectCharacter = 0x33,
 
+        TransferField = 0x42,
         UserMove = 0x49,
         PublicChat = 0x54,
     }
