@@ -23,7 +23,6 @@ using System.Text;
 using MapleLib.PacketLib;
 using WvsGame.Field.Entity;
 using WvsGame.WZ;
-using WvsGame.Movement;
 using WvsGame.User;
 using System.Drawing;
 using Common;
@@ -583,18 +582,18 @@ namespace WvsGame.Packets
             return packet.ToArray();
         }
 
-        public static byte[] UserMove(int cid, Point start, List<IMovePath> movement)
-        {
-            var packet = new PacketWriter();
-            packet.WriteOpcode(SendOps.UserMove);
-            packet.WriteInt(cid);
-            packet.WritePos(start);
-            packet.WriteBytes(new byte[4]);
-            packet.WriteByte(movement.Count);
-            foreach (IMovePath move in movement)
-                move.Encode(packet);
-            return packet.ToArray();
-        }
+        //public static byte[] UserMove(int cid, Point start, List<IMovePath> movement)
+        //{
+        //    var packet = new PacketWriter();
+        //    packet.WriteOpcode(SendOps.UserMove);
+        //    packet.WriteInt(cid);
+        //    packet.WritePos(start);
+        //    packet.WriteBytes(new byte[4]);
+        //    packet.WriteByte(movement.Count);
+        //    foreach (IMovePath move in movement)
+        //        move.Encode(packet);
+        //    return packet.ToArray();
+        //}
 
         public static byte[] UserMove(int cid, Point start, byte[] movement)
         {

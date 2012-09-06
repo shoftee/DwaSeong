@@ -9,7 +9,7 @@ D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\WvsGame\obj\Debug\WvsGame.cspro
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\WvsGame\obj\Debug\WvsGame.exe
 D:\Users\Rice\Documents\GitHub\DwaSeong\DwaSeong\WvsGame\obj\Debug\WvsGame.pdb
 C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsGame.exe
-C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsGame.pdb
 C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsGame\obj\Debug\WvsGame.csprojResolveAssemblyReference.cache
+C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\BinSvr\WvsGame.pdb
 C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsGame\obj\Debug\WvsGame.exe
 C:\Users\guo\Documents\GitHub\DwaSeong\DwaSeong\WvsGame\obj\Debug\WvsGame.pdb

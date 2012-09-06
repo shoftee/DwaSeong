@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WvsGame.Packets;
-using WvsGame.Movement;
 using System.Drawing;
 using MapleLib.PacketLib;
 using WvsGame.Field.Entity;
@@ -89,7 +88,7 @@ namespace WvsGame.User
             return new PacketWriter(CUserPool.PlayerLeaveField(mID));
         }
 
-        public List<IMovePath> ParseMovementPath(PacketReader packet)
+        /*public List<IMovePath> ParseMovementPath(PacketReader packet)
         {
             var Fragments = new List<IMovePath>();
             //int portalCount = packet.ReadByte();
@@ -117,7 +116,7 @@ namespace WvsGame.User
                         duration = packet.ReadShort();
                         Fragments.Add(new AbsoluteLifeMovePath(fragmentType, new Point(x, y), duration, newstate, unk, fh, new Point(xWobble, yWobble), new Point(xOffset, yOffset)));
                         break;
-                    /*case 1:
+                    case 1:
                         x = packet.ReadShort();                                   //[9/1/2012 3:23:42 PM][대타] 받은 패킷 49 00 
                         y = packet.ReadShort();                                   //                                     01 
                         newstate = packet.ReadByte();                             //                                     AC 7E BC BC 
@@ -143,9 +142,9 @@ namespace WvsGame.User
                         break;
                     case 11:
                         //EquipChangeMovement(readbyte)
-                        break;*/
+                        break;
                     default:
-                        Logger.Write(Logger.LogTypes.경고, "NEW MOVEMENT {0} : {1}", fragmentType, /*packet.ToArray().ToString2s()*/"ㅋㅋ");
+                        Logger.Write(Logger.LogTypes.경고, "NEW MOVEMENT {0} : {1}", fragmentType, packet.ToArray().ToString2s());
                         //break;
                         return Fragments;
                 }
@@ -171,7 +170,7 @@ namespace WvsGame.User
             packet.ReadByte(); // y new
 
             return Fragments;
-        }
+        }*/
 
         public PacketWriter GenerateMovementPath()
         {

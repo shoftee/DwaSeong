@@ -87,8 +87,6 @@
     <Compile Include="Field\Foothold.cs" />
     <Compile Include="Field\FootholdTree.cs" />
     <Compile Include="GameServer.cs" />
-    <Compile Include="Movement\AbsoluteLifeMovePath.cs" />
-    <Compile Include="Movement\IMovePath.cs" />
     <Compile Include="Networking\ClientAcceptor.cs" />
     <Compile Include="Packets\Handlers\TransferField.cs" />
     <Compile Include="Packets\Handlers\EnterServer.cs" />
