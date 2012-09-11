@@ -5,6 +5,7 @@ using System.Text;
 using WvsGame.User;
 using MapleLib.PacketLib;
 using WvsGame.Packets;
+using Common;
 
 namespace WvsGame.Packets.Handlers
 {
@@ -15,6 +16,7 @@ namespace WvsGame.Packets.Handlers
             int tickCount = packet.ReadInt();
             byte inventoryType = packet.ReadByte();
             c.SendPacket(CWvsContext.BroadcastMessage(5, string.Format("InventorySort {0},{1}", tickCount, inventoryType)));
+            c.SendPacket(CUser.UpdatePrimaryStat(PrimaryStat.Null));
         }
     }
 
@@ -25,6 +27,7 @@ namespace WvsGame.Packets.Handlers
             int tickCount = packet.ReadInt();
             byte inventoryType = packet.ReadByte();
             c.SendPacket(CWvsContext.BroadcastMessage(5, string.Format("InventoryCombine {0},{1}", tickCount, inventoryType)));
+            c.SendPacket(CUser.UpdatePrimaryStat(PrimaryStat.Null));
         }
     }
 
@@ -38,6 +41,7 @@ namespace WvsGame.Packets.Handlers
             short dst = packet.ReadShort();
             short quantity = packet.ReadShort();
             c.SendPacket(CWvsContext.BroadcastMessage(5, string.Format("InventoryOperation {0},{1}     {2},{3},{4}", tickCount, inventoryType, src, dst, quantity)));
+            c.SendPacket(CUser.UpdatePrimaryStat(PrimaryStat.Null));
         }
     }
 }
