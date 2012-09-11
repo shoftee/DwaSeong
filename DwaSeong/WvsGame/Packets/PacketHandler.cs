@@ -57,6 +57,10 @@ namespace WvsGame.Packets
             RegisterHandler(RecvOps.PublicChat, new PublicChat());
             RegisterHandler(RecvOps.TransferField, new TransferField());
             RegisterHandler(RecvOps.UserMove, new UserMove());
+
+            RegisterHandler(RecvOps.InventorySort, new InventorySort());
+            RegisterHandler(RecvOps.InventoryCombine, new InventoryCombine());
+            RegisterHandler(RecvOps.InventoryOperation, new InventoryOperation());
         }
 
         void RegisterHandler(RecvOps opcode, IPacketHandler handler)

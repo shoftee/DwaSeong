@@ -125,5 +125,9 @@ namespace Common
         TransferField = 0x42,
         UserMove = 0x49,
         PublicChat = 0x54,
+
+        InventorySort = 0x73,
+        InventoryCombine = 0x74,
+        InventoryOperation = 0x75,
     }
 }

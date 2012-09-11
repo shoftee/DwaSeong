@@ -557,6 +557,41 @@ namespace WvsGame.Packets
         }
     }
 
+    public static class CUser
+    {
+        public static byte[] UpdatePrimaryStat(PrimaryStat stat, bool itemReaction = false, Character chr = null)
+        {
+            var dict = new Dictionary<PrimaryStat, int>();
+            dict.Add(stat, 0);
+            return UpdatePrimaryStat(dict, itemReaction, chr);
+        }
+
+        public static byte[] UpdatePrimaryStat(Dictionary<PrimaryStat, int> stats, bool itemReaction = false, Character chr = null)
+        {
+            var packet = new PacketWriter();
+            packet.WriteOpcode(SendOps.SetTemporaryStat);
+            packet.WriteBool(itemReaction);
+            long mask = 0;
+            foreach (var stat in stats)
+                mask |= ((long)stat.Key);
+            packet.WriteLong(mask);
+            foreach (var stat in stats)
+                switch (stat.Key)
+                {
+                    case PrimaryStat.Null:
+                        break;
+                    default:
+                        packet.WriteInt(stat.Value);
+                        break;
+                }
+            if (mask == 0 && !itemReaction)
+                packet.WriteByte(1);
+            packet.WriteByte(0);
+            packet.WriteByte(0);
+            return packet.ToArray();
+        }
+    }
+
     public static class CField
     {
         // 0 = public

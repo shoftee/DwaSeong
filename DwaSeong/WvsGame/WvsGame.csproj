@@ -88,6 +88,7 @@
     <Compile Include="Field\FootholdTree.cs" />
     <Compile Include="GameServer.cs" />
     <Compile Include="Networking\ClientAcceptor.cs" />
+    <Compile Include="Packets\Handlers\Inventory.cs" />
     <Compile Include="Packets\Handlers\TransferField.cs" />
     <Compile Include="Packets\Handlers\EnterServer.cs" />
     <Compile Include="Packets\Handlers\KeepAlive.cs" />
