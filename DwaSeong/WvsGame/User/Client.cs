@@ -54,7 +54,6 @@ namespace WvsGame.User
                         //}
                         SendPacket(CClientSocket.KeepAlive());
                         System.Threading.Thread.Sleep(1000);
-                        return;
                     }
                 }).Start();
         }

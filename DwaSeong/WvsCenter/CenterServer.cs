@@ -90,7 +90,7 @@ namespace WvsCenter
                     Console.Write("\r                                                            | {0}", serv.Name);
                     Console.Write("\r                                                  | {0}", serv.port);
                     Console.Write("\r                                  | {0}", serv.PublicIP);
-                    Console.Write("\r                   | {0}", serv.Connection != null ? serv.ClientCount.ToString() : "뵨굘끊김");
+                    Console.Write("\r                   | {0}", serv.Connection != null ? serv.ClientCount.ToString() : "DISCONN");
                     Console.Write("\r         {0}", serv.ServerType);
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Write("\r        |");
