@@ -105,3 +105,12 @@ Backup*/
 UpgradeLog*.XML
 
 
+DwaSeong/_[Rr]esharper*
+DwaSeong/Common/bin/
+DwaSeong/Common/obj/
+DwaSeong/WvsCenter/bin/
+DwaSeong/WvsCenter/obj/
+DwaSeong/WvsGame/obj/
+DwaSeong/WvsGame/bin/
+DwaSeong/WvsLogin/obj/
+DwaSeong/WvsLogin/bin/

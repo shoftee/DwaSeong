@@ -27,20 +27,16 @@ namespace WvsLogin.Packets
 {
     class PacketHandler
     {
-        private static PacketHandler instance = null;
+        private static readonly PacketHandler instance = new PacketHandler();
         private IPacketHandler[] handlers;
 
-        public PacketHandler()
+        private PacketHandler()
         {
             RegisterHandlers();
         }
 
         public static PacketHandler getInstance()
         {
-            if (instance == null)
-            {
-                instance = new PacketHandler();
-            }
             return instance;
         }
 
@@ -90,10 +86,6 @@ namespace WvsLogin.Packets
                 if (handler != null)
                     return handler;
             }
-            catch (NullReferenceException)
-            {
-                //    Logger.Write(Logger.LogTypes.Exception, "NRE{0}", nre);
-            }
             catch (Exception)
             {
                 //Logger.Write(Logger.LogTypes.Exception, "uh oh {0}", e);
@@ -103,24 +95,8 @@ namespace WvsLogin.Packets
 
         public IPacketHandler GetHandler(RecvOps opcode)
         {
-            short op = (short)opcode;
-            try
-            {
-                if (op > handlers.Length)
-                    return null;
-                IPacketHandler handler = handlers[op];
-                if (handler != null)
-                    return handler;
-            }
-            catch (NullReferenceException)
-            {
-                //    Logger.Write(Logger.LogTypes.Exception, "NRE{0}", nre);
-            }
-            catch (Exception)
-            {
-                //Logger.Write(Logger.LogTypes.Exception, "uh oh {0}", e);
-            }
-            return null;
+            short recvOpCode = (short)opcode;
+            return GetHandler(recvOpCode);
         }
     }
 }
