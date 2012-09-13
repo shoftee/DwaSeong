@@ -27,17 +27,12 @@ namespace WvsLogin.Packets
 {
     class PacketHandler
     {
-        private static PacketHandler instance = null;
+        private static readonly PacketHandler instance = new PacketHandler();
         private IPacketHandler[] handlers;
 
         private PacketHandler()
         {
             RegisterHandlers();
-        }
-
-        static PacketHandler()
-        {
-            instance = new PacketHanlder();
         }
 
         public static PacketHandler getInstance()
@@ -100,8 +95,8 @@ namespace WvsLogin.Packets
 
         public IPacketHandler GetHandler(RecvOps opcode)
         {
-             short recvOpCode = (RecvOps)opcode;
-             return GetHandler(recvOpCode);
+            short recvOpCode = (short)opcode;
+            return GetHandler(recvOpCode);
         }
     }
 }
