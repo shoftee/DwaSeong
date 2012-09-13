@@ -97,10 +97,15 @@ namespace WvsGame.Packets.Handlers
                             c.SendPacket(CField.ChatMessage(0x0C, "@version"));
                             c.SendPacket(CField.ChatMessage(0x0C, "@chatcolor"));
                             c.SendPacket(CField.ChatMessage(0x0C, "@accountinfo"));
+                            c.SendPacket(CField.ChatMessage(0x0C, "@npstatu"));
                             break;
                         case "version":
                             c.SendPacket(CField.ChatMessage(0x07,
                                                             "DwaSeong(돠성) Maple Gulobal Emulator Verson " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
+                            break;
+                        case "npstatu":
+                            c.SendPacket(CUser.UpdatePrimaryStat(PrimaryStat.Null));
+                            c.SendPacket(CField.ChatMessage(0x0C, "null primary stat update 0"));
                             break;
                         case "chatcolor":
                             if (cmd.Length < 2)

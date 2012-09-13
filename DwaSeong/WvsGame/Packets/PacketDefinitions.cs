@@ -636,7 +636,6 @@ namespace WvsGame.Packets
             packet.WriteOpcode(SendOps.UserMove);
             packet.WriteInt(cid);
             packet.WritePos(start);
-            packet.WriteBytes(new byte[4]);
             packet.WriteBytes(movement);
             return packet.ToArray();
         }
