@@ -105,7 +105,7 @@ namespace WvsGame.Packets.Handlers
                             break;
                         case "npstatu":
                             c.SendPacket(CUser.UpdatePrimaryStat(PrimaryStat.Null));
-                            c.SendPacket(CField.ChatMessage(0x0C, "null primary stat update 0"));
+                            c.SendPacket(CField.ChatMessage(0x0C, "null[0] primary stat update"));
                             break;
                         case "chatcolor":
                             if (cmd.Length < 2)

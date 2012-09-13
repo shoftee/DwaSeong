@@ -60,9 +60,55 @@ namespace Common
         CheckSPW = 0x1F,                             // 0x006678C0
 
         //CWvsContext::OnPacket                      // 0x00C40D10
+        InventoryOperation = 0x20,                   // 0x00C63E50
+        InventoryGrow = 0x21,                        // 0x00C4C080
+        StatChanged = 0x22,                          // 0x00C4E630
+        TemporaryStatSet = 0x23,                     // 0x00C506E0
+        TemporaryStatReset = 0x24,                   // 0x00C44E40
+        ForcedStatSet = 0x25,                        // 0x00C
+        ForcedStatReset = 0x26,                      // 0x00C
+        //0x00C5D220 = 0x27                          // 0x00C
+        SkillChangeRecordResult = 0x28,              // 0x00C
+        SkillUseResult = 0x29,                       // 0x00C
+        //0x00C58090 = 0x2A              Decode 4    // 0x00C
+        GivePopularityResult = 0x2B,                 // 0x00C
+        Message = 0x2C,                              // 0x00C
+        OpenFullClientDownloadLink = 0x2D,           // 0x00C
+        MemoResult = 0x2E,                           // 0x00C
+        MapTransferResult = 0x2F,                    // 0x00C
         AntiMacroResult = 0x30,                      // 0x00C53550
+        ClaimResult = 0x33,                          // 0x00C
+        SetClaimSvrAvailableTime = 0x34,             // 0x00C
+        ClaimSvrStatusChanged = 0x35,                // 0x00C
+        SetTamingMobInfo = 0x36,                     // 0x00C
+        QuestClear = 0x37,                           // 0x00C
+        EntrustedShopCheckResult = 0x38,             // 0x00C
+        SkillLearnItemResult = 0x3B,                 // 0x00C
+        SkillResetItemResult = 0x3C,                 // 0x00C44B00
+        //0x00C496D0 = 0x3D
+        //0x00C497E0 = 0x3E
+        GatheritemResult = 0x3F,
+        SortItemResult = 0x40,
+        TradeMoneyLimit = 0x44,                      // 0x00C4A0B0
+        SetGender = 0x45,
         BroadcastMsg = 0x58,                         // 0x00C57AA0
+        IncubatorResult = 0x59,
+        ShopScannerResult = 0x5A,
+        ShopLinkResult = 0x5B,
+        MarriageRequest = 0x5C,
+        MarriageResult = 0x5D,
+        WeddingGiftResult = 0x5E,
+        NotifyMarriedPartnerMapTransfer = 0x5F,
+        CashPetFoodResult = 0x60,
+        SetWeekEventMessage = 0x61,
+        SetPotionDiscountRate = 0x62,
+        BridleMobCatchFail = 0x63,
+        ImmitatedNPCResult = 0x64,
+        ImmitatedNPCData = 0x65,
+        LimitedNPCDisableInfo = 0x66,
+
         GMBoard = 0x9C,
+        MacroSysDataInit = 0xB8,
 
         //CStage::OnPacket
         SetField = 0xB9,
