@@ -112,3 +112,6 @@ DwaSeong/WvsGame/obj/
 DwaSeong/WvsGame/bin/
 DwaSeong/WvsLogin/obj/
 DwaSeong/WvsLogin/bin/
+*.suo
+*.pdb
+*.cache
